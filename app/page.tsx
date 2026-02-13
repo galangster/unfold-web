@@ -457,14 +457,40 @@ function HeroSection() {
         </p>
 
         <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <motion.button
-            className="bg-foreground text-background px-8 py-4 rounded-full text-lg font-medium flex items-center gap-3 shadow-2xl shadow-foreground/20 hover:opacity-90 transition-opacity"
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+          <motion.a
+            href="#"
+            className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-[#C8A55C] text-[#1a1a1a] font-semibold text-lg overflow-hidden shadow-2xl shadow-[#C8A55C]/30"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <Download size={20} />
-            Download for iOS
-          </motion.button>
+            {/* Animated gradient background */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-[#C8A55C] via-[#e0c078] to-[#C8A55C]"
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{ backgroundSize: "200% 200%" }}
+            />
+            
+            {/* Glow effect */}
+            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl bg-[#C8A55C]" />
+            
+            {/* Content */}
+            <span className="relative z-10 flex items-center gap-3">
+              <Download size={22} className="group-hover:animate-bounce" />
+              Download for iOS
+            </span>
+            
+            {/* Shimmer effect */}
+            <motion.div
+              className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            />
+          </motion.a>
         </div>
 
         <motion.div
