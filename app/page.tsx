@@ -844,7 +844,7 @@ function AppShowcaseSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-32 bg-secondary/30 relative overflow-hidden">
+    <section ref={sectionRef} className="py-32 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#C8A55C]/5 to-transparent" />
       
@@ -1191,7 +1191,7 @@ function Footer() {
   return (
     <footer className="bg-secondary/30 py-16 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden">
               <Image 
