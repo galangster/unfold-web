@@ -458,38 +458,60 @@ function HeroSection() {
 
         <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <motion.a
-            href="#"
-            className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-[#C8A55C] text-[#1a1a1a] font-semibold text-lg overflow-hidden shadow-2xl shadow-[#C8A55C]/30"
+            href="https://apps.apple.com/app/unfold"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Animated gradient background */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-[#C8A55C] via-[#e0c078] to-[#C8A55C]"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{ backgroundSize: "200% 200%" }}
-            />
-            
-            {/* Glow effect */}
-            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl bg-[#C8A55C]" />
-            
-            {/* Content */}
-            <span className="relative z-10 flex items-center gap-3">
-              <Download size={22} className="group-hover:animate-bounce" />
-              Download for iOS
-            </span>
-            
-            {/* Shimmer effect */}
-            <motion.div
-              className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-            />
+            {/* Outer pill container with border */}
+            <div className="relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-[#C8A55C] text-[#1a1a1a] font-semibold text-lg overflow-hidden shadow-[0_0_40px_rgba(200,165,92,0.4)] border-2 border-[#C8A55C] ring-4 ring-[#C8A55C]/20">
+              {/* Animated gradient background */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#C8A55C] via-[#e8d4a8] to-[#C8A55C]"
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{ backgroundSize: "200% 200%" }}
+              />
+              
+              {/* Animated glow pulse */}
+              <motion.div 
+                className="absolute inset-0 rounded-full bg-[#C8A55C]"
+                animate={{
+                  opacity: [0.3, 0.6, 0.3],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                style={{ filter: "blur(20px)" }}
+              />
+              
+              {/* Content */}
+              <span className="relative z-10 flex items-center gap-3">
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <Download size={22} />
+                </motion.div>
+                Download for iOS
+              </span>
+              
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+              />
+            </div>
           </motion.a>
         </div>
 
@@ -871,9 +893,6 @@ function AppShowcaseSection() {
 
   return (
     <section ref={sectionRef} className="py-32 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#C8A55C]/5 to-transparent" />
-      
       <div className="max-w-6xl mx-auto px-6 relative">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div ref={contentRef}>
