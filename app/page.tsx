@@ -448,7 +448,7 @@ function HeroSection() {
           ref={subtitleRef}
           className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed font-light"
         >
-          Personalized devotionals that meet you where you are—each day&apos;s reading designed around your spiritual season.
+          Personalized devotionals that meet you where you are. Each day's reading is designed around your spiritual season.
         </p>
 
         <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
