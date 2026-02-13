@@ -430,30 +430,25 @@ function HeroSection() {
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="inline-flex items-center gap-2 bg-secondary/50 backdrop-blur-sm px-4 py-2 rounded-full text-muted-foreground text-sm font-medium mb-8 border border-border">
-            <Sparkles size={14} className="text-[#C8A55C]" />
             Now available on the App Store
           </span>
         </motion.div>
 
         <h1
           ref={titleRef}
-          className="font-serif text-6xl md:text-8xl text-foreground mb-6 leading-[0.95] tracking-tight overflow-hidden"
+          className="font-serif text-6xl md:text-8xl text-foreground mb-6 leading-[1.05] tracking-tight overflow-hidden"
         >
-          <span className="hero-title-word inline-block">Your</span>{" "}
-          <span className="hero-title-word inline-block">personal</span>
+          <span className="hero-title-word inline-block">A sacred</span>{" "}
+          <span className="hero-title-word inline-block text-[#C8A55C] italic">daily practice</span>
           <br />
-          <span className="hero-title-word inline-block text-[#C8A55C] italic">spiritual</span>{" "}
-          <span className="hero-title-word inline-block text-[#C8A55C] italic">journey</span>
-          <br />
-          <span className="hero-title-word inline-block">awaits.</span>
+          <span className="hero-title-word inline-block">crafted just for you.</span>
         </h1>
 
         <p
           ref={subtitleRef}
           className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed font-light"
         >
-          Personalized daily devotionals crafted just for you. 
-          Deepen your faith, one day at a time.
+          Personalized devotionals that meet you where you are—each day&apos;s reading designed around your spiritual season.
         </p>
 
         <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
