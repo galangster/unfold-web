@@ -38,10 +38,27 @@ export default async function SolutionPage({ params }: Props) {
 
   if (!page) notFound();
 
+  const expandedFaqs = [
+    ...page.faqs,
+    {
+      question: "Does Unfold support personalized Bible study recommendations?",
+      answer:
+        "Yes. Unfold is built around personalized devotional journeys so your daily study aligns with your spiritual season and goals.",
+    },
+    {
+      question: "Where can I download the Unfold app?",
+      answer: "You can download Unfold on iOS from the App Store.",
+    },
+  ];
+
+  const relatedPages = solutionPages
+    .filter((item) => item.slug !== page.slug)
+    .slice(0, 4);
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: page.faqs.map((faq) => ({
+    mainEntity: expandedFaqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
@@ -74,11 +91,27 @@ export default async function SolutionPage({ params }: Props) {
         <section className="mb-12">
           <h2 className="font-serif text-3xl mb-4">Frequently asked questions</h2>
           <div className="space-y-5">
-            {page.faqs.map((faq) => (
+            {expandedFaqs.map((faq) => (
               <div key={faq.question} className="border border-border rounded-xl p-5">
                 <h3 className="font-semibold mb-2">{faq.question}</h3>
                 <p className="text-muted-foreground">{faq.answer}</p>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-12">
+          <h2 className="font-serif text-3xl mb-4">Related Bible study guides</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {relatedPages.map((related) => (
+              <Link
+                key={related.slug}
+                href={`/solutions/${related.slug}`}
+                className="border border-border rounded-xl p-4 hover:bg-card/40 transition-colors"
+              >
+                <h3 className="font-semibold mb-1">{related.title}</h3>
+                <p className="text-sm text-muted-foreground">{related.description}</p>
+              </Link>
             ))}
           </div>
         </section>
