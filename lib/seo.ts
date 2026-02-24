@@ -2,8 +2,8 @@ export const siteConfig = {
   name: "Unfold",
   description:
     "Personalized Bible study plans and daily devotionals tailored to your spiritual journey.",
-  // TODO: set NEXT_PUBLIC_SITE_URL in production (e.g. https://unfold.yourdomain.com)
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://www.unfold-app.com",
+  // Canonical site URL for metadata/sitemaps
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://unfoldapp.co", 
 };
 
 export type SolutionPage = {
