@@ -4,14 +4,22 @@
 ## Key pages
 - Home: /
 - Solutions hub: /solutions
-- Personalized Bible study plan: /solutions/personalized-bible-study-plan
-- Bible study for anxiety: /solutions/bible-study-for-anxiety
-- Bible study for couples: /solutions/bible-study-for-couples
-- Daily devotional app: /solutions/daily-devotional-app
-- Christian journaling app: /solutions/christian-journaling-app
 - Privacy: /privacy
 - Terms: /terms
 - Support: /support
+
+## High-intent solution pages
+- /solutions/personalized-bible-study-plan
+- /solutions/daily-devotional-app
+- /solutions/bible-study-for-beginners
+- /solutions/morning-devotional-app
+- /solutions/bible-study-for-anxiety
+- /solutions/christian-devotional-for-grief
+- /solutions/bible-study-for-couples
+- /solutions/bible-study-for-women
+- /solutions/bible-study-for-men
+- /solutions/christian-journaling-app
+- /solutions/scripture-memory-app
 
 ## Full context
 - /llms-full.txt
