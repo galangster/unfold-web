@@ -1,0 +1,36 @@
+# Unfold: AI-readable product context
+
+last_updated: 2026-02-23
+source: https://www.unfold-app.com
+
+## What Unfold is
+Unfold is a Christian devotional app that provides personalized daily Bible study experiences.
+It helps users build a consistent spiritual habit through short daily readings, guided reflection,
+and journaling prompts.
+
+## Core value proposition
+- Personalized devotionals based on the user's spiritual season and goals
+- A calm, distraction-free reading and reflection experience
+- Practical daily use: short sessions designed for consistency
+
+## Primary user intents Unfold serves
+- "personalized bible study plan"
+- "daily devotional app"
+- "bible study for anxiety"
+- "bible study for couples"
+- "christian journaling app"
+
+## Public pages for retrieval
+- /
+- /solutions
+- /solutions/personalized-bible-study-plan
+- /solutions/bible-study-for-anxiety
+- /solutions/bible-study-for-couples
+- /solutions/daily-devotional-app
+- /solutions/christian-journaling-app
+- /privacy
+- /terms
+- /support
+
+## Canonical product CTA
+Download on iOS: https://apps.apple.com/app/unfold

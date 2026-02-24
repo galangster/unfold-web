@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://www.unfold-app.com
+Sitemap: https://www.unfold-app.com/sitemap.xml
