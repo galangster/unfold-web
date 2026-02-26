@@ -1,0 +1,25 @@
+# Unfold
+> Personalized Bible study plans and daily devotionals.
+
+## Key pages
+- Home: /
+- Solutions hub: /solutions
+- Privacy: /privacy
+- Terms: /terms
+- Support: /support
+
+## High-intent solution pages
+- /solutions/personalized-bible-study-plan
+- /solutions/daily-devotional-app
+- /solutions/bible-study-for-beginners
+- /solutions/morning-devotional-app
+- /solutions/bible-study-for-anxiety
+- /solutions/christian-devotional-for-grief
+- /solutions/bible-study-for-couples
+- /solutions/bible-study-for-women
+- /solutions/bible-study-for-men
+- /solutions/christian-journaling-app
+- /solutions/scripture-memory-app
+
+## Full context
+- /llms-full.txt

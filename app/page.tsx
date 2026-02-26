@@ -1248,6 +1248,7 @@ function Footer() {
             <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Privacy</a>
             <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Terms</a>
             <a href="/support" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Support</a>
+            <a href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Guides</a>
           </div>
           <p className="text-muted-foreground text-sm">© 2025 Unfold. All rights reserved.</p>
         </div>
