@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Gupter, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const instrumentSerif = Instrument_Serif({
+// Gupter — the serif Unfold uses for display/headings in the app.
+const gupter = Gupter({
   variable: "--font-serif",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400"],
-  style: ["normal", "italic"],
+  weight: ["400", "700"],
 });
 
 const inter = Inter({
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${instrumentSerif.variable} ${inter.variable} antialiased font-sans`}
+        className={`${gupter.variable} ${inter.variable} antialiased font-sans`}
       >
         <ThemeProvider defaultTheme="dark" enableSystem>
           {children}

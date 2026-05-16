@@ -253,42 +253,20 @@ function IPhoneMockup({ children }: { children?: React.ReactNode }) {
         <div className="relative bg-background rounded-[2.5rem] overflow-hidden">
           {/* Dynamic Island */}
           <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-7 bg-foreground rounded-full z-20" />
-          {/* Screen content */}
-          <div className="aspect-[9/19.5] bg-gradient-to-b from-background to-secondary p-4 pt-12">
+          {/* Screen content — paywall walkthrough video */}
+          <div className="aspect-[9/19.5] bg-background overflow-hidden">
             {children || (
-              <div className="h-full flex flex-col">
-                {/* Mock app content */}
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-[#C8A55C] rounded-2xl mx-auto mb-3 flex items-center justify-center overflow-hidden">
-                    <Image 
-                      src="/app-icon.png" 
-                      alt="Unfold" 
-                      width={64} 
-                      height={64}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="font-serif text-lg text-foreground">Today&apos;s Devotional</h3>
-                </div>
-                <div className="flex-1 bg-card rounded-2xl p-4 border border-border">
-                  <div className="w-12 h-3 bg-[#C8A55C]/30 rounded-full mb-3" />
-                  <div className="space-y-2">
-                    <div className="h-2 bg-muted rounded w-full" />
-                    <div className="h-2 bg-muted rounded w-4/5" />
-                    <div className="h-2 bg-muted rounded w-3/4" />
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <div className="h-2 bg-muted rounded w-full mb-2" />
-                    <div className="h-2 bg-muted rounded w-2/3" />
-                  </div>
-                </div>
-                {/* Bottom nav */}
-                <div className="flex justify-around mt-4 pt-3 border-t border-border">
-                  <div className="w-8 h-8 rounded-full bg-[#C8A55C]/20" />
-                  <div className="w-8 h-8 rounded-full bg-muted" />
-                  <div className="w-8 h-8 rounded-full bg-muted" />
-                </div>
-              </div>
+              <video
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                poster="/paywall-walkthrough-poster.jpg"
+              >
+                <source src="/paywall-walkthrough.mp4" type="video/mp4" />
+              </video>
             )}
           </div>
         </div>
@@ -439,7 +417,7 @@ function HeroSection() {
           className="font-serif text-6xl md:text-8xl text-foreground mb-6 leading-[1.05] tracking-tight overflow-hidden"
         >
           <span className="hero-title-word inline-block">A sacred</span>{" "}
-          <span className="hero-title-word inline-block text-[#C8A55C] italic">daily practice</span>
+          <span className="hero-title-word inline-block text-[#C8A55C]">daily practice</span>
           <br />
           <span className="hero-title-word inline-block">crafted just for you.</span>
         </h1>
@@ -788,7 +766,7 @@ function FeaturesSection() {
           <h2 className="font-serif text-5xl md:text-6xl text-foreground mb-6">
             Designed for your
             <br />
-            <span className="italic">spiritual growth</span>
+            <span>spiritual growth</span>
           </h2>
         </div>
 
@@ -872,7 +850,7 @@ function AppShowcaseSection() {
             <h2 className="font-serif text-5xl md:text-6xl text-foreground mb-6">
               Sacred moments,
               <br />
-              <span className="italic">anywhere.</span>
+              <span>anywhere.</span>
             </h2>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
               Unfold brings the beauty of daily devotion to your pocket. 
@@ -1017,7 +995,7 @@ function HowItWorksSection() {
           <h2 className="font-serif text-5xl md:text-6xl text-foreground">
             Your journey
             <br />
-            <span className="italic">begins here.</span>
+            <span>begins here.</span>
           </h2>
         </div>
 
@@ -1159,7 +1137,7 @@ function PricingSection() {
               <p className="text-muted-foreground mb-6">Start your journey</p>
               <div className="font-serif text-5xl text-foreground mb-8">$0</div>
               <ul className="space-y-4 mb-8">
-                {["1 devotional series", "3 basic themes", "Up to 50 highlights & notes", "1 daily reminder"].map((feature) => (
+                {["1 devotional series", "Series up to 7 days", "1 app theme", "Basic study methods"].map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-muted-foreground">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C8A55C]" />
                     {feature}
@@ -1181,9 +1159,9 @@ function PricingSection() {
               <h3 className="font-serif text-2xl text-background mb-2">Premium</h3>
               <p className="text-background/60 mb-6">Unlock everything</p>
               <div className="font-serif text-5xl text-background mb-2">$9.99<span className="text-lg text-background/60">/mo</span></div>
-              <p className="text-background/50 text-sm mb-8">or $69.99/year — save 41%</p>
+              <p className="text-background/50 text-sm mb-8">or $69.99/year — save 42%</p>
               <ul className="space-y-4 mb-8">
-                {["Unlimited devotional series", "All themes & fonts", "Unlimited highlights & notes", "Unlimited daily reminders", "Offline reading", "Priority support"].map((feature) => (
+                {["Unlimited devotional series", "AI companion that adapts to you", "40+ study methods & journal prompts", "Thousands of resources & commentaries", "Longer, deeper devotionals", "All themes, fonts & colors"].map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-background/80">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C8A55C]" />
                     {feature}
