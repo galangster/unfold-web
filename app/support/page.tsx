@@ -44,10 +44,10 @@ export default function SupportPage() {
               Get a response within 24-48 hours
             </p>
             <a 
-              href="mailto:nicholasgalang@gmail.com"
+              href="mailto:support@unfoldapp.co"
               className="text-primary hover:underline font-medium"
             >
-              nicholasgalang@gmail.com
+              support@unfoldapp.co
             </a>
           </div>
 
@@ -121,8 +121,8 @@ export default function SupportPage() {
               What Bible translations are available?
             </h3>
             <p className="text-foreground/80 leading-relaxed">
-              Unfold currently supports ESV, NIV, NLT, and KJV translations. We&apos;re working 
-              to add more translations in future updates.
+              Unfold currently supports the Berean Standard Bible (BSB) and the King
+              James Version (KJV). We&apos;re working to add more translations in future updates.
             </p>
           </div>
 
@@ -132,8 +132,8 @@ export default function SupportPage() {
             </h3>
             <p className="text-foreground/80 leading-relaxed">
               We&apos;re sorry for the trouble! Please email us at{" "}
-              <a href="mailto:nicholasgalang@gmail.com" className="text-primary hover:underline">
-                nicholasgalang@gmail.com
+              <a href="mailto:support@unfoldapp.co" className="text-primary hover:underline">
+                support@unfoldapp.co
               </a>{" "}
               with details about what happened, and we&apos;ll get it fixed as soon as possible.
             </p>
@@ -149,7 +149,7 @@ export default function SupportPage() {
             Our team is ready to assist you with any questions or issues.
           </p>
           <a 
-            href="mailto:nicholasgalang@gmail.com"
+            href="mailto:support@unfoldapp.co"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
           >
             <Mail className="w-4 h-4" />
@@ -163,7 +163,7 @@ export default function SupportPage() {
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © 2026 Unfold. All rights reserved.
+              © 2026 The Creative Co. Marketing Firm LLC. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
               <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">

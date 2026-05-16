@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Download, Star, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Wind, Flame } from "lucide-react";
+import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Star, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Wind, Flame, Book, Feather } from "lucide-react";
 import { useTheme } from "next-themes";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -453,60 +453,23 @@ function HeroSection() {
 
         <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <motion.a
-            href="https://apps.apple.com/app/unfold"
+            href="https://apps.apple.com/app/id6760814444"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            aria-label="Download Unfold on the App Store"
+            className="inline-block"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 300, damping: 40 }}
           >
-            {/* Outer pill container with border */}
-            <div className="relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-[#C8A55C] text-[#1a1a1a] font-semibold text-lg overflow-hidden shadow-[0_0_40px_rgba(200,165,92,0.4)] border-2 border-[#C8A55C] ring-4 ring-[#C8A55C]/20">
-              {/* Animated gradient background */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[#C8A55C] via-[#e8d4a8] to-[#C8A55C]"
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                style={{ backgroundSize: "200% 200%" }}
-              />
-              
-              {/* Animated glow pulse */}
-              <motion.div 
-                className="absolute inset-0 rounded-full bg-[#C8A55C]"
-                animate={{
-                  opacity: [0.3, 0.6, 0.3],
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{ filter: "blur(20px)" }}
-              />
-              
-              {/* Content */}
-              <span className="relative z-10 flex items-center gap-3">
-                <motion.div
-                  animate={{ y: [0, -3, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <Download size={22} />
-                </motion.div>
-                Download for iOS
-              </span>
-              
-              {/* Shimmer effect */}
-              <motion.div
-                className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-              />
-            </div>
+            <Image
+              src="/app-store-badge.svg"
+              alt="Download on the App Store"
+              width={168}
+              height={56}
+              priority
+              className="h-14 w-auto"
+            />
           </motion.a>
         </div>
 
@@ -743,16 +706,28 @@ function FeaturesSection() {
       natureEffect: "ember",
     },
     {
+      icon: Book,
+      title: "Bible Study & Scripture",
+      description: "Read Scripture in a clean, distraction-free interface. Highlight verses and revisit them anytime.",
+      natureEffect: "wind",
+    },
+    {
+      icon: Feather,
+      title: "Prayer Journaling",
+      description: "Capture prayers, reflections, and answered prayer in a private journal for your walk with God.",
+      natureEffect: "leaf",
+    },
+    {
       icon: Heart,
       title: "Guided Reflection",
       description: "Journal prompts and reflection questions to deepen your understanding.",
-      natureEffect: "wind",
+      natureEffect: "glow",
     },
     {
       icon: Sparkles,
       title: "Beautiful Design",
       description: "A calm, distraction-free reading experience that honors the sacred.",
-      natureEffect: "leaf",
+      natureEffect: "ember",
     },
     {
       icon: Shield,
@@ -935,8 +910,8 @@ function HowItWorksSection() {
   const steps = [
     { 
       number: "01", 
-      title: "Choose a Journey", 
-      description: "Select from themed devotional journeys on topics that speak to your season of life.",
+      title: "Choose a Series", 
+      description: "Select from themed devotional series on topics that speak to your season of life.",
       icon: Compass,
     },
     { 
@@ -998,7 +973,7 @@ function HowItWorksSection() {
           scale: 1,
           duration: 0.8,
           stagger: 0.3,
-          ease: "back.out(1.7)",
+          ease: "power3.out",
           scrollTrigger: {
             trigger: journeyRef.current,
             start: "top 70%",
@@ -1016,7 +991,7 @@ function HowItWorksSection() {
           rotate: 0,
           duration: 0.6,
           stagger: 0.3,
-          ease: "back.out(2)",
+          ease: "power3.out",
           scrollTrigger: {
             trigger: journeyRef.current,
             start: "top 65%",
@@ -1184,7 +1159,7 @@ function PricingSection() {
               <p className="text-muted-foreground mb-6">Start your journey</p>
               <div className="font-serif text-5xl text-foreground mb-8">$0</div>
               <ul className="space-y-4 mb-8">
-                {["1 active journey", "Basic devotionals", "Limited highlights"].map((feature) => (
+                {["1 devotional series", "3 basic themes", "Up to 50 highlights & notes", "1 daily reminder"].map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-muted-foreground">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C8A55C]" />
                     {feature}
@@ -1205,10 +1180,10 @@ function PricingSection() {
               </div>
               <h3 className="font-serif text-2xl text-background mb-2">Premium</h3>
               <p className="text-background/60 mb-6">Unlock everything</p>
-              <div className="font-serif text-5xl text-background mb-2">$3.99<span className="text-lg text-background/60">/mo</span></div>
-              <p className="text-background/50 text-sm mb-8">or $29.99/year (save 25%)</p>
+              <div className="font-serif text-5xl text-background mb-2">$9.99<span className="text-lg text-background/60">/mo</span></div>
+              <p className="text-background/50 text-sm mb-8">or $69.99/year — save 41%</p>
               <ul className="space-y-4 mb-8">
-                {["Unlimited journeys", "Premium reading themes", "AI journal prompts", "Daily reminders", "Wallpaper sharing", "Priority support"].map((feature) => (
+                {["Unlimited devotional series", "All themes & fonts", "Unlimited highlights & notes", "Unlimited daily reminders", "Offline reading", "Priority support"].map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-background/80">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C8A55C]" />
                     {feature}
@@ -1249,7 +1224,7 @@ function Footer() {
             <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Terms</a>
             <a href="/support" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Support</a>
           </div>
-          <p className="text-muted-foreground text-sm">© 2025 Unfold. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">© 2026 The Creative Co. Marketing Firm LLC. All rights reserved.</p>
         </div>
       </div>
     </footer>

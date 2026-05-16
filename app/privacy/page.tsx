@@ -174,10 +174,10 @@ export default function PrivacyPage() {
           <p className="text-foreground/80 leading-relaxed mt-4">
             <strong>Email:</strong>{" "}
             <a 
-              href="mailto:nicholasgalang@gmail.com" 
+              href="mailto:support@unfoldapp.co" 
               className="text-primary hover:underline"
             >
-              nicholasgalang@gmail.com
+              support@unfoldapp.co
             </a>
           </p>
         </div>
@@ -188,7 +188,7 @@ export default function PrivacyPage() {
         <div className="max-w-4xl mx-auto px-6 py-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © 2026 Unfold. All rights reserved.
+              © 2026 The Creative Co. Marketing Firm LLC. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
               <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
