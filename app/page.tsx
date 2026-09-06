@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Star, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Wind, Flame, Book, Feather } from "lucide-react";
+import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Wind, Flame, Book, Feather } from "lucide-react";
 import { useTheme } from "next-themes";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -451,19 +451,6 @@ function HeroSection() {
           </motion.a>
         </div>
 
-        <motion.div
-          className="mt-16 flex items-center justify-center gap-8 text-muted-foreground"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.6 }}
-        >
-          <div className="flex items-center gap-2">
-            <Star size={16} className="text-[#C8A55C] fill-[#C8A55C]" />
-            <span className="text-sm font-medium">4.9 App Store Rating</span>
-          </div>
-          <div className="w-1 h-1 rounded-full bg-border" />
-          <span className="text-sm">10,000+ downloads</span>
-        </motion.div>
       </motion.div>
 
       {/* FIXED: Animated chevron scroll indicator */}

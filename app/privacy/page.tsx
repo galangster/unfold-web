@@ -6,200 +6,199 @@ export const metadata: Metadata = {
   description: "Learn how Unfold protects your privacy and handles your data.",
 };
 
+const collectedInformation = [
+  "Name and profile context: the name you choose, devotional preferences, current situation, faith background, spiritual goals, and relationship-with-God responses.",
+  "Inner Weather: when available, optional structured emotional-state selections used to shape future devotional tone, reflection questions, and practices.",
+  "User content: journal entries, notes, highlights, bookmarks, Companion conversations, check-ins, and related reflections.",
+  "Reading activity: devotional progress, reading position, completed days, reminders, and app settings.",
+  "Device and purchase identifiers: a random device identifier, timezone, push token, and RevenueCat subscription state.",
+  "Diagnostics: error reports and technical performance information needed to operate and secure the app.",
+];
+
+const uses = [
+  "provide and synchronize the app for this device identity;",
+  "generate and improve personalized devotional content;",
+  "provide requested Companion, journaling, and Bible-study features;",
+  "maintain subscriptions and restore purchases;",
+  "send optional reminders;",
+  "diagnose errors, prevent abuse, and secure the service; and",
+  "respond to support requests.",
+];
+
+const providers = [
+  "Apple for App Store distribution, purchases, and notifications;",
+  "RevenueCat for subscription status and purchase restoration;",
+  "Cloudflare for network protection and delivery;",
+  "Railway and database infrastructure providers for backend hosting and storage;",
+  "Anthropic, xAI, and Google for AI generation and related processing; and",
+  "Sentry for error and performance diagnostics.",
+];
+
+const choices = [
+  "edit profile and devotional preferences in the app;",
+  "delete individual journal and Inner Weather entries;",
+  "export supported journal content;",
+  "disable notifications in Unfold or system settings; and",
+  "use Delete all data to erase Unfold server and device data.",
+];
+
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b border-border">
-        <div className="max-w-4xl mx-auto px-6 py-6">
-          <Link 
-            href="/" 
-            className="text-xl font-serif font-semibold text-foreground hover:text-muted-foreground transition-colors"
+        <div className="mx-auto max-w-4xl px-6 py-6">
+          <Link
+            href="/"
+            className="font-serif text-xl font-semibold text-foreground transition-colors hover:text-muted-foreground"
           >
             Unfold
           </Link>
         </div>
       </header>
 
-      {/* Content */}
-      <main className="max-w-3xl mx-auto px-6 py-16">
-        <h1 className="text-4xl font-serif font-bold text-foreground mb-8">
+      <main className="mx-auto max-w-3xl px-6 py-16">
+        <h1 className="mb-8 font-serif text-4xl font-bold text-foreground">
           Privacy Policy
         </h1>
-        
-        <p className="text-muted-foreground mb-8">
-          Last updated: February 13, 2026
-        </p>
+        <p className="mb-8 text-muted-foreground">Last updated: August 25, 2026</p>
 
-        <div className="prose prose-stone dark:prose-invert max-w-none">
-          <p className="text-lg text-foreground/90 leading-relaxed">
-            At Unfold, we take your privacy seriously. This Privacy Policy explains how we collect, 
-            use, and protect your personal information when you use our devotional app.
+        <div className="prose prose-stone max-w-none dark:prose-invert">
+          <p className="text-lg leading-relaxed text-foreground/90">
+            Unfold provides personalized Bible study, devotionals, journaling,
+            and faith-companion features. This policy explains what Unfold
+            collects, why it is used, where it is processed, and how you can
+            delete it.
+          </p>
+          <p className="leading-relaxed text-foreground/80">
+            Unfold does not create a traditional user account. A random device
+            identifier connects this installation to its server data and
+            purchase access. It is not used for advertising or cross-app tracking.
           </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
             Information We Collect
           </h2>
-          
-          <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
-            Account Information
-          </h3>
-          <p className="text-foreground/80 leading-relaxed">
-            When you create an account, we collect your email address and name. This information 
-            is used to identify your account and sync your devotional progress across devices.
-          </p>
-
-          <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
-            Journal Entries
-          </h3>
-          <p className="text-foreground/80 leading-relaxed">
-            Any reflections or journal entries you write within the app are stored securely and 
-            are private to your account. We do not access, read, or share your personal spiritual 
-            reflections with anyone.
-          </p>
-
-          <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
-            Devotional Preferences
-          </h3>
-          <p className="text-foreground/80 leading-relaxed">
-            We store your devotional journey preferences (such as topics, themes, and reading 
-            progress) to provide personalized content and maintain your spiritual journey continuity.
-          </p>
-
-          <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
-            Usage Data
-          </h3>
-          <p className="text-foreground/80 leading-relaxed">
-            We collect anonymous usage statistics to help us understand how the app is used and 
-            improve the experience. This includes feature usage, app performance data, and crash 
-            reports. This data cannot be used to identify you personally.
-          </p>
-
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
-            How We Use Your Information
-          </h2>
           <ul className="space-y-3 text-foreground/80">
-            <li>To provide and maintain the Unfold devotional service</li>
-            <li>To sync your progress and journal entries across your devices</li>
-            <li>To generate personalized devotional content using AI</li>
-            <li>To send you optional notifications about your daily devotionals</li>
-            <li>To improve our app and user experience</li>
-            <li>To respond to your support requests</li>
+            {collectedInformation.map((item) => <li key={item}>{item}</li>)}
           </ul>
-
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
-            AI and Data Processing
-          </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            Unfold uses artificial intelligence to generate personalized devotional content. 
-            When you request a devotional, your preferences and chosen themes are processed by 
-            our AI systems to create relevant spiritual content. We do not use your journal 
-            entries or personal reflections to train AI models.
+          <p className="leading-relaxed text-foreground/80">
+            Unfold does not collect precise location, contacts, browsing
+            history, or advertising identifiers. Unfold does not sell personal
+            data or use it for targeted advertising.
           </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
-            Data Storage and Security
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
+            How We Use Information
           </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            Your data is stored securely using industry-standard encryption. We use 
-            Firebase/Google Cloud infrastructure, which maintains SOC 2 Type II compliance 
-            and robust security measures. All data transmission between your device and our 
-            servers is encrypted using TLS.
+          <p className="leading-relaxed text-foreground/80">We use this information to:</p>
+          <ul className="space-y-3 text-foreground/80">
+            {uses.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          <p className="leading-relaxed text-foreground/80">
+            Profile context, Inner Weather selections, reading history, journal
+            context, and Companion messages may be processed by our AI providers
+            when needed to provide personalization or an AI feature. We do not
+            sell your content or use it to train an Unfold public AI model.
           </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
-            Data Retention
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
+            Storage and Security
           </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            We retain your account data and journal entries for as long as you maintain an 
-            active account. If you delete your account, all associated data is permanently 
-            removed from our systems within 30 days.
+          <p className="leading-relaxed text-foreground/80">
+            Personal data is stored on your device and on Unfold&apos;s service
+            infrastructure. Data is encrypted in transit, and we use safeguards
+            designed to protect stored data. No storage or transmission system
+            can guarantee absolute security.
+          </p>
+          <p className="leading-relaxed text-foreground/80">
+            Unfold is device-bound. It does not currently provide account-based
+            cross-device synchronization.
           </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
-            Your Rights
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
+            Service Providers
           </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            You have the right to:
+          <p className="leading-relaxed text-foreground/80">
+            Unfold uses service providers that process data to provide their
+            contracted services:
           </p>
           <ul className="space-y-3 text-foreground/80">
-            <li>Access your personal data</li>
-            <li>Correct inaccurate information</li>
-            <li>Delete your account and associated data</li>
-            <li>Export your journal entries</li>
-            <li>Opt out of non-essential notifications</li>
+            {providers.map((item) => <li key={item}>{item}</li>)}
           </ul>
+          <p className="leading-relaxed text-foreground/80">
+            Each provider handles data under its own terms and privacy commitments.
+          </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
-            Third-Party Services
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
+            Retention and Deletion
           </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            Unfold uses the following third-party services:
+          <p className="leading-relaxed text-foreground/80">
+            We retain device-bound data while this installation uses Unfold,
+            unless you delete it. Deleted individual items can remain as
+            synchronization tombstones so an offline device cannot recreate
+            them. Tombstoned items are excluded from app and AI reads.
           </p>
-          <ul className="space-y-3 text-foreground/80">
-            <li><strong>Firebase</strong> - Authentication and data storage</li>
-            <li><strong>RevenueCat</strong> - In-app purchase processing</li>
-            <li><strong>Anthropic/OpenAI</strong> - AI devotional content generation</li>
-            <li><strong>Apple App Store</strong> - Subscription management</li>
-          </ul>
-          <p className="text-foreground/80 leading-relaxed mt-4">
-            Each of these services has their own privacy policies and security measures.
+          <p className="leading-relaxed text-foreground/80">
+            When <strong>Delete all data</strong> succeeds, active personal
+            records are erased from Unfold&apos;s servers and this device. We retain
+            the old device identifier for up to 30 days only to purge late-arriving
+            writes. We then remove that identifier and keep a one-way hash solely
+            to prevent the erased identity from recreating data.
+          </p>
+          <p className="leading-relaxed text-foreground/80">
+            Apple and RevenueCat may retain purchase records as required for
+            transactions, fraud prevention, accounting, or legal compliance.
+            Deleting Unfold data does not cancel an App Store subscription.
           </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
+            Your Choices
+          </h2>
+          <p className="leading-relaxed text-foreground/80">You can:</p>
+          <ul className="space-y-3 text-foreground/80">
+            {choices.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          <p className="leading-relaxed text-foreground/80">
+            For access or privacy questions, contact{" "}
+            <a href="mailto:support@unfoldapp.co">support@unfoldapp.co</a>.
+          </p>
+
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
             Children&apos;s Privacy
           </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            Unfold is not intended for children under 13 years of age. We do not knowingly 
-            collect personal information from children under 13. If you are a parent or guardian 
-            and believe your child has provided us with personal information, please contact us.
+          <p className="leading-relaxed text-foreground/80">
+            Unfold is not intended for children under 13. We do not knowingly
+            collect personal data from children under 13.
           </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
             Changes to This Policy
           </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            We may update this Privacy Policy from time to time. We will notify you of any 
-            changes by posting the new policy in the app and updating the effective date. 
-            Continued use of Unfold after changes constitutes acceptance of the updated policy.
+          <p className="leading-relaxed text-foreground/80">
+            We may update this policy as the app changes. We will post the
+            effective date and provide additional notice when required.
           </p>
 
-          <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
             Contact Us
           </h2>
-          <p className="text-foreground/80 leading-relaxed">
-            If you have any questions about this Privacy Policy or our data practices, 
-            please contact us at:
-          </p>
-          <p className="text-foreground/80 leading-relaxed mt-4">
+          <p className="leading-relaxed text-foreground/80">
             <strong>Email:</strong>{" "}
-            <a 
-              href="mailto:support@unfoldapp.co" 
-              className="text-primary hover:underline"
-            >
-              support@unfoldapp.co
-            </a>
+            <a href="mailto:support@unfoldapp.co">support@unfoldapp.co</a>
           </p>
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border mt-20">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+      <footer className="mt-20 border-t border-border">
+        <div className="mx-auto max-w-4xl px-6 py-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm text-muted-foreground">
               © 2026 The Creative Co. Marketing Firm LLC. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
-              <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                Privacy
-              </Link>
-              <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-                Terms
-              </Link>
-              <Link href="/support" className="text-muted-foreground hover:text-foreground transition-colors">
-                Support
-              </Link>
+              <Link href="/privacy" className="text-muted-foreground transition-colors hover:text-foreground">Privacy</Link>
+              <Link href="/terms" className="text-muted-foreground transition-colors hover:text-foreground">Terms</Link>
+              <Link href="/support" className="text-muted-foreground transition-colors hover:text-foreground">Support</Link>
             </div>
           </div>
         </div>
