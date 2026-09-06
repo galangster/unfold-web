@@ -91,8 +91,7 @@ export default function SupportPage() {
               Can I use Unfold on multiple devices?
             </h3>
             <p className="text-foreground/80 leading-relaxed">
-              Yes! Your devotionals and journal entries sync across all your devices. 
-              Simply sign in with the same account on each device.
+              Each device has its own devotionals and journal entries. Syncing between devices isn&apos;t currently available.
             </p>
           </div>
 
@@ -101,8 +100,12 @@ export default function SupportPage() {
               Is my journal data private?
             </h3>
             <p className="text-foreground/80 leading-relaxed">
-              Absolutely. Your journal entries are private and encrypted. We never read, 
-              share, or use your personal reflections for any purpose.
+              Companion can use context from your journal when generating replies. AI providers process that context.{" "}
+              Read our{" "}
+              <Link href="/privacy" className="text-primary hover:underline">
+                Privacy Policy
+              </Link>
+              .
             </p>
           </div>
 

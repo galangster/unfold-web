@@ -860,7 +860,7 @@ function AppShowcaseSection() {
               {[
                 "Daily push notifications for your devotional",
                 "Offline reading for your commute",
-                "Seamless sync across devices",
+                "A journal for your daily reflections",
                 "Beautiful typography that reads like a book",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-foreground">
