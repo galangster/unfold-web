@@ -10,6 +10,7 @@ const collectedInformation = [
   "Name and profile context: the name you choose, devotional preferences, current situation, faith background, spiritual goals, and relationship-with-God responses.",
   "Inner Weather: when available, optional structured emotional-state selections used to shape future devotional tone, reflection questions, and practices.",
   "User content: journal entries, notes, highlights, bookmarks, Companion conversations, check-ins, and related reflections.",
+  "Voice check-ins: optional recordings you choose to send, their transcripts, and recording times.",
   "Reading activity: devotional progress, reading position, completed days, reminders, and app settings.",
   "Device and purchase identifiers: a random device identifier, timezone, push token, and RevenueCat subscription state.",
   "Diagnostics: error reports and technical performance information needed to operate and secure the app.",
@@ -30,13 +31,16 @@ const providers = [
   "RevenueCat for subscription status and purchase restoration;",
   "Cloudflare for network protection and delivery;",
   "Railway and database infrastructure providers for backend hosting and storage;",
-  "Anthropic, xAI, and Google for AI generation and related processing; and",
+  "Anthropic, xAI, and Google for AI generation and related processing;",
+  "OpenAI for voice check-in transcription; and",
   "Sentry for error and performance diagnostics.",
 ];
 
 const choices = [
   "edit profile and devotional preferences in the app;",
   "delete individual journal and Inner Weather entries;",
+  "review, edit, or delete saved voice check-in transcripts;",
+  "discard unsent voice recordings or disable microphone access in system settings;",
   "export supported journal content;",
   "disable notifications in Unfold or system settings; and",
   "use Delete all data to erase Unfold server and device data.",
@@ -60,7 +64,7 @@ export default function PrivacyPage() {
         <h1 className="mb-8 font-serif text-4xl font-bold text-foreground">
           Privacy Policy
         </h1>
-        <p className="mb-8 text-muted-foreground">Last updated: August 25, 2026</p>
+        <p className="mb-8 text-muted-foreground">Last updated: September 8, 2026</p>
 
         <div className="prose prose-stone max-w-none dark:prose-invert">
           <p className="text-lg leading-relaxed text-foreground/90">
@@ -99,6 +103,29 @@ export default function PrivacyPage() {
             context, and Companion messages may be processed by our AI providers
             when needed to provide personalization or an AI feature. We do not
             sell your content or use it to train an Unfold public AI model.
+          </p>
+
+          <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
+            Voice Check-ins
+          </h2>
+          <p className="leading-relaxed text-foreground/80">
+            Voice check-ins are optional. A recording stays on your device until
+            you choose Send. Unfold then sends it through our backend to OpenAI
+            to turn it into text. Unfold stores the transcript and recording time
+            with your device identifier. Recent transcripts may be sent to our AI
+            generation providers to personalize Companion and future readings.
+          </p>
+          <p className="leading-relaxed text-foreground/80">
+            Unfold does not keep a server audio library or place these recordings
+            in its public narration cache. After the transcript is saved, the app
+            removes the local recording. If file removal fails, the app retries
+            cleanup when you next open voice check-ins. Failed or unsent recordings
+            stay on your device until you send or discard them.
+          </p>
+          <p className="leading-relaxed text-foreground/80">
+            Saved transcripts remain until you delete them. Removing a transcript
+            excludes it from future context retrieval. It does not remove text
+            already generated or retract an AI request already submitted.
           </p>
 
           <h2 className="mt-10 mb-4 font-serif text-2xl font-semibold text-foreground">
