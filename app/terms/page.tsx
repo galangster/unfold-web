@@ -4,6 +4,13 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms of Service - Unfold",
   description: "Terms and conditions for using the Unfold app.",
+  alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "Terms of Service - Unfold",
+    description: "Terms and conditions for using the Unfold app.",
+    url: "/terms",
+    type: "website",
+  },
 };
 
 export default function TermsPage() {

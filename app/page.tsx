@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Star, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Wind, Flame, Book, Feather } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion, MotionConfig } from "framer-motion";
+import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Wind, Flame, Book, Feather } from "lucide-react";
 import { useTheme } from "next-themes";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+
+const APP_STORE_URL = "https://apps.apple.com/app/id6760814444";
 
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -22,7 +24,7 @@ function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-10 h-10 rounded-full bg-secondary" />
+      <div className="w-11 h-11 shrink-0 rounded-full bg-secondary" />
     );
   }
 
@@ -31,7 +33,7 @@ function ThemeToggle() {
   return (
     <motion.button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative w-10 h-10 rounded-full bg-secondary hover:bg-secondary/80 flex items-center justify-center transition-colors border border-border"
+      className="relative w-11 h-11 shrink-0 rounded-full bg-secondary hover:bg-secondary/80 flex items-center justify-center transition-colors border border-border"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       aria-label="Toggle theme"
@@ -121,6 +123,12 @@ function Card3D({ children, className = "" }: { children: React.ReactNode; class
 
 // Animated Gradient Background
 function AnimatedGradientBackground() {
+  const prefersReducedMotion = useReducedMotion();
+  // Keep the orbs as static colour wash rather than removing them, so the
+  // hero keeps its depth without three more infinite tweens.
+  const drift = <T,>(animation: T): T | undefined =>
+    prefersReducedMotion ? undefined : animation;
+
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {/* Primary gradient orb */}
@@ -130,10 +138,10 @@ function AnimatedGradientBackground() {
           background: "radial-gradient(circle, rgba(200, 165, 92, 0.3) 0%, transparent 70%)",
           filter: "blur(60px)",
         }}
-        animate={{
+        animate={drift({
           x: ["-20%", "10%", "-20%"],
           y: ["-10%", "20%", "-10%"],
-        }}
+        })}
         transition={{
           duration: 20,
           repeat: Infinity,
@@ -147,10 +155,10 @@ function AnimatedGradientBackground() {
           background: "radial-gradient(circle, rgba(200, 165, 92, 0.2) 0%, rgba(154, 123, 60, 0.1) 50%, transparent 70%)",
           filter: "blur(80px)",
         }}
-        animate={{
+        animate={drift({
           x: ["10%", "-10%", "10%"],
           y: ["10%", "-5%", "10%"],
-        }}
+        })}
         transition={{
           duration: 15,
           repeat: Infinity,
@@ -164,10 +172,10 @@ function AnimatedGradientBackground() {
           background: "radial-gradient(circle, rgba(200, 165, 92, 0.4) 0%, transparent 60%)",
           filter: "blur(100px)",
         }}
-        animate={{
+        animate={drift({
           scale: [1, 1.2, 1],
           opacity: [0.1, 0.15, 0.1],
-        }}
+        })}
         transition={{
           duration: 10,
           repeat: Infinity,
@@ -222,15 +230,43 @@ function EmberParticle({
   );
 }
 
-// Floating embers background - FIXED distribution
+// Floating embers background.
+// The particle values are random, so they MUST NOT be generated during render:
+// the server and the client would roll different numbers and React would report
+// a hydration mismatch. Generating them in an effect means the server renders an
+// empty container and the embers appear after mount.
+type Ember = {
+  id: number;
+  delay: number;
+  startX: number;
+  size: number;
+  duration: number;
+};
+
 function EmberBackground() {
-  const particles = Array.from({ length: 40 }, (_, i) => ({
-    id: i,
-    delay: Math.random() * 8,
-    startX: Math.random() * 100, // 0-100% for full width distribution
-    size: 2 + Math.random() * 4,
-    duration: 10 + Math.random() * 8,
-  }));
+  const prefersReducedMotion = useReducedMotion();
+  const [particles, setParticles] = useState<Ember[]>([]);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setParticles([]);
+      return;
+    }
+    // Halve the count on small screens; each ember runs two infinite tweens
+    // with a blurred box-shadow, and they composite for the whole page scroll.
+    const count = window.innerWidth < 768 ? 20 : 40;
+    setParticles(
+      Array.from({ length: count }, (_, i) => ({
+        id: i,
+        delay: Math.random() * 8,
+        startX: Math.random() * 100, // 0-100% for full width distribution
+        size: 2 + Math.random() * 4,
+        duration: 10 + Math.random() * 8,
+      }))
+    );
+  }, [prefersReducedMotion]);
+
+  if (prefersReducedMotion) return null;
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -243,8 +279,54 @@ function EmberBackground() {
 
 // iPhone Mockup Component
 function IPhoneMockup({ children }: { children?: React.ReactNode }) {
+  const prefersReducedMotion = useReducedMotion();
+  const frameRef = useRef<HTMLDivElement>(null);
+  // The walkthrough is a 1.26 MB file sitting well below the fold, and autoPlay
+  // makes the browser fetch it during initial load whatever preload says. The
+  // source is attached late instead, on whichever of these happens first:
+  // the frame nearing the viewport, the first scroll, or a short safety timer.
+  // The timer matters: if IntersectionObserver never delivers a callback the
+  // video must still end up playing, so this degrades to a small delay rather
+  // than to a permanently blank frame.
+  const [videoInView, setVideoInView] = useState(false);
+
+  useEffect(() => {
+    let done = false;
+    const load = () => {
+      if (done) return;
+      done = true;
+      setVideoInView(true);
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(timer);
+      io?.disconnect();
+    };
+    const onScroll = () => load();
+
+    const timer = setTimeout(load, 6000);
+    window.addEventListener("scroll", onScroll, { passive: true, once: true });
+
+    let io: IntersectionObserver | undefined;
+    const el = frameRef.current;
+    if (el && typeof IntersectionObserver !== "undefined") {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) load();
+        },
+        { rootMargin: "400px" }
+      );
+      io.observe(el);
+    }
+
+    return () => {
+      done = true;
+      clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
+      io?.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="relative mx-auto" style={{ maxWidth: "320px" }}>
+    <div ref={frameRef} className="relative mx-auto" style={{ maxWidth: "320px" }}>
       {/* Phone frame */}
       <div className="relative bg-foreground rounded-[3rem] p-3 shadow-2xl">
         {/* Outer bezel */}
@@ -258,14 +340,17 @@ function IPhoneMockup({ children }: { children?: React.ReactNode }) {
             {children || (
               <video
                 className="w-full h-full object-cover"
-                autoPlay
+                aria-hidden="true"
+                autoPlay={!prefersReducedMotion}
                 loop
                 muted
                 playsInline
-                preload="metadata"
+                preload="none"
                 poster="/paywall-walkthrough-poster.jpg"
               >
-                <source src="/paywall-walkthrough.mp4" type="video/mp4" />
+                {videoInView && (
+                  <source src="/paywall-walkthrough.mp4" type="video/mp4" />
+                )}
               </video>
             )}
           </div>
@@ -288,7 +373,7 @@ function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -317,15 +402,15 @@ function Navigation() {
           <span className="text-foreground font-serif text-xl tracking-tight">Unfold</span>
         </div>
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium">Features</a>
-          <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium">How it Works</a>
-          <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium">Pricing</a>
+          <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">Features</a>
+          <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">How it Works</a>
+          <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">Pricing</a>
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
           <motion.a
             href="#pricing"
-            className="bg-foreground text-background px-5 py-2.5 rounded-full text-sm font-medium flex items-center gap-2 hover:opacity-90 transition-opacity"
+            className="bg-foreground text-background px-5 py-2.5 min-h-11 rounded-full text-sm font-medium inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -399,7 +484,7 @@ function HeroSection() {
       />
 
       <motion.div
-        className="relative z-10 text-center max-w-4xl mx-auto px-6"
+        className="relative z-10 text-center max-w-5xl mx-auto px-6"
         style={{ opacity }}
       >
         <motion.div
@@ -414,10 +499,10 @@ function HeroSection() {
 
         <h1
           ref={titleRef}
-          className="font-serif text-6xl md:text-8xl text-foreground mb-6 leading-[1.05] tracking-tight overflow-hidden"
+          className="font-serif text-5xl sm:text-6xl md:text-8xl text-foreground mb-6 leading-[1.05] tracking-tight overflow-hidden"
         >
-          <span className="hero-title-word inline-block">A sacred</span>{" "}
-          <span className="hero-title-word inline-block text-[#C8A55C]">daily practice</span>
+          <span className="hero-title-word inline-block text-[#C8A55C]">A sacred</span>{" "}
+          <span className="hero-title-word inline-block">daily Bible study</span>
           <br />
           <span className="hero-title-word inline-block">crafted just for you.</span>
         </h1>
@@ -431,7 +516,7 @@ function HeroSection() {
 
         <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <motion.a
-            href="https://apps.apple.com/app/id6760814444"
+            href={APP_STORE_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Download Unfold on the App Store"
@@ -451,19 +536,13 @@ function HeroSection() {
           </motion.a>
         </div>
 
-        <motion.div
-          className="mt-16 flex items-center justify-center gap-8 text-muted-foreground"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.6 }}
-        >
-          <div className="flex items-center gap-2">
-            <Star size={16} className="text-[#C8A55C] fill-[#C8A55C]" />
-            <span className="text-sm font-medium">4.9 App Store Rating</span>
-          </div>
-          <div className="w-1 h-1 rounded-full bg-border" />
-          <span className="text-sm">10,000+ downloads</span>
-        </motion.div>
+        {/* Platform requirement in visible copy. It previously existed only
+            inside the JSON-LD, which nothing reading the rendered page sees. */}
+        <p className="mt-5 text-sm text-muted-foreground">
+          For iPhone, iOS 16.4 or later. Free to download, with an optional
+          subscription.
+        </p>
+
       </motion.div>
 
       {/* FIXED: Animated chevron scroll indicator */}
@@ -692,7 +771,7 @@ function FeaturesSection() {
     {
       icon: Feather,
       title: "Prayer Journaling",
-      description: "Capture prayers, reflections, and answered prayer in a private journal for your walk with God.",
+      description: "Capture prayers, reflections, and answered prayer in a journal made for your walk with God.",
       natureEffect: "leaf",
     },
     {
@@ -710,7 +789,7 @@ function FeaturesSection() {
     {
       icon: Shield,
       title: "Privacy First",
-      description: "Your spiritual journey is private. We never sell your data.",
+      description: "No ad trackers. No third-party analytics. We never sell your data.",
       natureEffect: "glow",
     },
   ];
@@ -860,7 +939,7 @@ function AppShowcaseSection() {
               {[
                 "Daily push notifications for your devotional",
                 "Offline reading for your commute",
-                "Seamless sync across devices",
+                "A journal for your daily reflections",
                 "Beautiful typography that reads like a book",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-foreground">
@@ -1137,16 +1216,22 @@ function PricingSection() {
               <p className="text-muted-foreground mb-6">Start your journey</p>
               <div className="font-serif text-5xl text-foreground mb-8">$0</div>
               <ul className="space-y-4 mb-8">
-                {["1 devotional series", "Series up to 7 days", "1 app theme", "Basic study methods"].map((feature) => (
+                {["Your first devotional series", "The full Bible in two translations", "1 app theme", "5 AI companion messages a day"].map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-muted-foreground">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C8A55C]" />
                     {feature}
                   </li>
                 ))}
               </ul>
-              <button className="w-full py-3 rounded-full border-2 border-[#C8A55C]/30 text-foreground font-medium hover:bg-[#C8A55C]/10 transition-colors">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download Unfold free on the App Store"
+                className="block w-full py-3 rounded-full border-2 border-[#C8A55C]/30 text-foreground font-medium text-center hover:bg-[#C8A55C]/10 transition-colors"
+              >
                 Get Started
-              </button>
+              </a>
             </div>
           </Card3D>
 
@@ -1159,18 +1244,27 @@ function PricingSection() {
               <h3 className="font-serif text-2xl text-background mb-2">Premium</h3>
               <p className="text-background/60 mb-6">Unlock everything</p>
               <div className="font-serif text-5xl text-background mb-2">$9.99<span className="text-lg text-background/60">/mo</span></div>
-              <p className="text-background/50 text-sm mb-8">or $69.99/year — save 42%</p>
+              <p className="text-background/50 text-sm mb-8">
+                or $69.99/year — save 42%. Free trial available to eligible new
+                subscribers.
+              </p>
               <ul className="space-y-4 mb-8">
-                {["Unlimited devotional series", "AI companion that adapts to you", "40+ study methods & journal prompts", "Thousands of resources & commentaries", "Longer, deeper devotionals", "All themes, fonts & colors"].map((feature) => (
+                {["Unlimited devotional series", "AI companion that adapts to you", "32 study methods & journal prompts", "Every reading, read aloud to you", "Longer, deeper devotionals", "All themes, fonts & colors"].map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-background/80">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C8A55C]" />
                     {feature}
                   </li>
                 ))}
               </ul>
-              <button className="w-full py-3 rounded-full bg-[#C8A55C] text-background font-medium hover:bg-[#B8954C] transition-colors">
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Start your Unfold Premium free trial on the App Store"
+                className="block w-full py-3 rounded-full bg-[#C8A55C] text-background font-medium text-center hover:bg-[#B8954C] transition-colors"
+              >
                 Start Free Trial
-              </button>
+              </a>
             </div>
           </Card3D>
         </div>
@@ -1198,9 +1292,10 @@ function Footer() {
             <span className="text-foreground font-serif text-xl">Unfold</span>
           </div>
           <div className="flex items-center gap-8">
-            <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Privacy</a>
-            <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Terms</a>
-            <a href="/support" className="text-muted-foreground hover:text-foreground transition-colors text-sm">Support</a>
+            <a href="/methods" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">Study methods</a>
+            <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">Privacy</a>
+            <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">Terms</a>
+            <a href="/support" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">Support</a>
           </div>
           <p className="text-muted-foreground text-sm">© 2026 The Creative Co. Marketing Firm LLC. All rights reserved.</p>
         </div>
@@ -1211,6 +1306,24 @@ function Footer() {
 
 // Main Page
 export default function Home() {
+  // Gupter and Inter both load with display: swap, and the app icon streams in
+  // after first paint. Every ScrollTrigger start offset is computed before those
+  // land, so the triggers fire at the wrong scroll positions until refreshed.
+  useEffect(() => {
+    let cancelled = false;
+    const refresh = () => {
+      if (!cancelled) ScrollTrigger.refresh();
+    };
+    if (typeof document !== "undefined" && document.fonts) {
+      document.fonts.ready.then(refresh).catch(() => {});
+    }
+    window.addEventListener("load", refresh);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", refresh);
+    };
+  }, []);
+
   return (
     <main className="bg-background min-h-screen overflow-x-hidden">
       <Navigation />

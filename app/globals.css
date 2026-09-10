@@ -23,7 +23,13 @@
   --input: #e7e5e4;
   --ring: #d6d3d1;
   --gold: #C8A55C;
-  --gold-dark: #9A7B3C;
+  /* 4.53:1 on the light background. The previous #9A7B3C measured only
+     3.81:1, which fails WCAG AA for body-size text. */
+  --gold-dark: #88703F;
+  /* Use --gold-accent for TEXT. It resolves to the accessible gold in light
+     mode and the full brand gold on dark, where #C8A55C already scores 8.48:1.
+     --gold itself stays untouched for fills, borders and rules. */
+  --gold-accent: var(--gold-dark);
 }
 
 .dark {
@@ -46,7 +52,40 @@
   --input: rgba(245, 240, 235, 0.15);
   --ring: #57534e;
   --gold: #C8A55C;
-  --gold-dark: #9A7B3C;
+  --gold-dark: #88703F;
+  --gold-accent: var(--gold);
+}
+
+/*
+ * Tailwind v4 requires colors to be registered as --color-* tokens inside
+ * @theme before utilities like bg-background or text-muted-foreground exist.
+ * Without this block those classes compile to nothing.
+ * `inline` keeps the value as var(--token) at the use site, so the .dark
+ * overrides above still apply at runtime.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-accent: var(--gold-accent);
+  --radius-lg: var(--radius);
 }
 
 @layer base {
@@ -94,4 +133,31 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--foreground);
+}
+
+/* Visible keyboard focus. Nothing defined one before, so focus fell back to the
+   UA default, which the rounded-full and transition treatments visually swallow. */
+:focus-visible {
+  outline: 2px solid var(--gold-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Respect a reduced-motion preference.
+   This neutralises CSS-driven motion and smooth scrolling. JS-driven motion
+   (framer-motion, GSAP) is gated separately in the components, because inline
+   styles written by those libraries are not reachable from here. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

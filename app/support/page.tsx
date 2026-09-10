@@ -5,6 +5,13 @@ import { Mail, MessageCircle, BookOpen } from "lucide-react";
 export const metadata: Metadata = {
   title: "Support - Unfold",
   description: "Get help with Unfold. Contact our support team for assistance.",
+  alternates: { canonical: "/support" },
+  openGraph: {
+    title: "Support - Unfold",
+    description: "Get help with Unfold. Contact our support team for assistance.",
+    url: "/support",
+    type: "website",
+  },
 };
 
 export default function SupportPage() {
@@ -37,9 +44,9 @@ export default function SupportPage() {
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
               <Mail className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">
+            <h2 className="text-lg font-semibold text-foreground mb-2">
               Email Support
-            </h3>
+            </h2>
             <p className="text-muted-foreground mb-4">
               Get a response within 24-48 hours
             </p>
@@ -55,9 +62,9 @@ export default function SupportPage() {
             <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
               <BookOpen className="w-6 h-6 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">
+            <h2 className="text-lg font-semibold text-foreground mb-2">
               FAQ
-            </h3>
+            </h2>
             <p className="text-muted-foreground mb-4">
               Common questions and answers
             </p>
@@ -91,8 +98,10 @@ export default function SupportPage() {
               Can I use Unfold on multiple devices?
             </h3>
             <p className="text-foreground/80 leading-relaxed">
-              Yes! Your devotionals and journal entries sync across all your devices. 
-              Simply sign in with the same account on each device.
+              Not yet. Unfold has no accounts to sign in to, and your content belongs to the
+              install on one device. Your devotionals and journal entries are backed up to our
+              server so they come back if you reinstall on that same device, but they do not
+              follow you to another one.
             </p>
           </div>
 
@@ -101,8 +110,12 @@ export default function SupportPage() {
               Is my journal data private?
             </h3>
             <p className="text-foreground/80 leading-relaxed">
-              Absolutely. Your journal entries are private and encrypted. We never read, 
-              share, or use your personal reflections for any purpose.
+              Your journal stays on your device and is also backed up to our own server so it is
+              not lost. That backup is encrypted in transit but it is not end-to-end encrypted,
+              so we are technically able to read it. We access it only to run, debug and support
+              the service, and we never sell it or share it with advertisers. Two features send
+              your writing to an AI model, and only when you ask: tapping &quot;Go Deeper&quot;
+              on a journal entry, and rating a companion reply.
             </p>
           </div>
 
@@ -142,9 +155,9 @@ export default function SupportPage() {
 
         {/* Contact CTA */}
         <div className="mt-16 p-8 rounded-2xl bg-muted text-center">
-          <h3 className="text-xl font-serif font-semibold text-foreground mb-3">
+          <h2 className="text-xl font-serif font-semibold text-foreground mb-3">
             Still need help?
-          </h3>
+          </h2>
           <p className="text-muted-foreground mb-6">
             Our team is ready to assist you with any questions or issues.
           </p>
