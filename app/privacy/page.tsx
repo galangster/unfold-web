@@ -35,7 +35,7 @@ export default function PrivacyPage() {
         </h1>
         
         <p className="text-muted-foreground mb-8">
-          Last updated: September 8, 2026
+          Last updated: September 9, 2026
         </p>
 
         <div className="max-w-none">
@@ -162,6 +162,10 @@ export default function PrivacyPage() {
 
           <p className="text-foreground/80 leading-relaxed mb-4">
             Where voice check-ins are available, sending one uploads the recording itself — up to two minutes of audio — from your device to our server, which has it turned into text by a third-party transcription service and stores the transcript there rather than on your device. The app names that service on the recording screen before you send. Deleting a saved check-in asks our server to delete that record. Deleting it does not change text that was already generated from it.
+          </p>
+
+          <p className="text-foreground/80 leading-relaxed mb-4">
+            The About me step of onboarding offers the same microphone. Tapping it records up to two minutes of audio, and the transcript comes back to you as editable text; nothing is saved until you choose Use this answer. The recording goes through the same route and the same transcription provider as a voice check-in, but our server does not keep the audio, does not store a separate transcript, and does not create a check-in from it. Only the text you accept is kept, as part of your onboarding answers described above.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
