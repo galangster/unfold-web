@@ -98,10 +98,11 @@ export default function SupportPage() {
               Can I use Unfold on multiple devices?
             </h3>
             <p className="text-foreground/80 leading-relaxed">
-              Not yet. Unfold has no accounts to sign in to, and your content belongs to the
-              install on one device. Your devotionals and journal entries are backed up to our
-              server so they come back if you reinstall on that same device, but they do not
-              follow you to another one.
+              Gift ownership and gift access can be recovered on another device with Sign in
+              with Apple. Your devotional content is separate: it belongs to the install on
+              one device and does not follow gift sign-in. Our server copy can restore your
+              devotionals and journal entries after a reinstall on that same device. An Apple
+              device transfer or encrypted backup restore can also carry your content to a new phone.
             </p>
           </div>
 
