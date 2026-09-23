@@ -35,7 +35,7 @@ export default function PrivacyPage() {
         </h1>
         
         <p className="text-muted-foreground mb-8">
-          Last updated: September 9, 2026
+          Last updated: September 23, 2026
         </p>
 
         <div className="max-w-none">
@@ -52,19 +52,27 @@ export default function PrivacyPage() {
           </h3>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
-            Unfold does not have user accounts. There is no login, and we never ask for your email address or a password.
+            You can use Unfold&apos;s devotional features without creating an account. Gifting uses optional Sign in with Apple so you can recover purchased and claimed gifts on another device. We do not ask for your email address or password during gift sign-in.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
-            Your install is identified to our server only by a random identifier generated on your device. It is kept in the iOS Keychain and also mirrored into the app&apos;s local database, so it survives reinstalling the app and can also survive the Keychain being cleared. That is what lets your content come back if you reinstall the app on the same device. If the Keychain cannot be read and no mirror exists, the app runs the session under a temporary identifier that is never saved and never sent, and nothing syncs during that session.
+            Your devotional content is identified to our server by a random identifier generated on your device. It is kept in the iOS Keychain and also mirrored into the app&apos;s local database, so it survives reinstalling the app and can also survive the Keychain being cleared. That is what lets your content come back if you reinstall the app on the same device. If the Keychain cannot be read and no mirror exists, the app runs the session under a temporary identifier that is never saved and never sent, and nothing syncs during that session.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
-            Because the identifier belongs to this install, your content does not follow you when you install Unfold fresh on another device. It does move with an Apple device-to-device transfer or an encrypted backup restore, which carry both the identifier and the app&apos;s local database to the new phone. We do not offer any other way to move your content between devices: there is no account, no iCloud sync and no cross-device feature.
+            Because the identifier belongs to this install, your devotional content does not follow you when you install Unfold fresh on another device. It does move with an Apple device-to-device transfer or an encrypted backup restore, which carry both the identifier and the app&apos;s local database to the new phone. Gift sign-in restores gift ownership and access; it does not transfer your journal, devotionals or other writing between devices.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
             During onboarding you may type a first name and a few sentences about your life and what you are walking through. Depending on the questions you answer, this can also include the names of people in your life and how they are related to you, a dated event you have coming up, and your answers to follow-up questions the app asks.
+          </p>
+
+          <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
+            Gift Purchases and Apple Sign-in
+          </h3>
+
+          <p className="text-foreground/80 leading-relaxed mb-4">
+            When you sign in for gifts, Apple gives us an identifier for your Apple account in Unfold and an identity token. Our server verifies that token and links the identifier to your gift session. We store the Apple identifier, your install identifier, purchase and claim records, transaction identifiers, gift status and relevant dates. We store a hash of each gift code. These records let us deliver gifts, restore gift access, prevent duplicate claims and handle refunds. They are not used for advertising or tracking.
           </p>
 
           <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">
@@ -119,6 +127,10 @@ export default function PrivacyPage() {
             A bug report you choose to send from inside the app is sent to our server with what you typed, the app and build version, your network state, the id and title of the devotional you are on, your reading preferences, your subscription status, and the app&apos;s recent internal event log. It does not include your journal entries or your notes.
           </p>
 
+          <p className="text-foreground/80 leading-relaxed mb-4">
+            Product feedback you choose to send from your profile or after a reading milestone includes your note, app and build version, platform and Support ID. Our server records this feedback in Sentry so we can review it. Sending feedback is optional and does not submit an App Store rating.
+          </p>
+
           <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
             How We Use Your Information
           </h2>
@@ -130,6 +142,7 @@ export default function PrivacyPage() {
             <li>To send you optional notifications about your daily devotionals</li>
             <li>To find and fix crashes and errors</li>
             <li>To respond to your support requests</li>
+            <li>To deliver gifts, restore gift access and handle purchase refunds</li>
           </ul>
 
           <h2 className="text-2xl font-serif font-semibold text-foreground mt-10 mb-4">
@@ -146,6 +159,10 @@ export default function PrivacyPage() {
 
           <p className="text-foreground/80 leading-relaxed mb-4">
             Devotional generation includes your first name and the answers you gave during onboarding: what you are walking through, how you are feeling, what you are seeking, how you describe your relationship with God, your growth goals and obstacles, the names of people in your life and how they are related to you, a dated event you told us about, and your answers to the app&apos;s follow-up questions, along with your chosen theme, reading length, translation and writing style.
+          </p>
+
+          <p className="text-foreground/80 leading-relaxed mb-4">
+            You can also add a life update before starting a new devotional series. The text you choose to include is sent to our server, saved with your series context and used to personalize generation. If you record an answer, tapping Transcribe sends the audio through our server to OpenAI. You can review and edit the returned text before adding it. This voice-answer flow is separate from saved voice check-ins described below.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
@@ -197,15 +214,19 @@ export default function PrivacyPage() {
           </h2>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
-            Because Unfold has no accounts, the copy on our server is keyed to the random identifier for your install. Your content is copied there automatically as you use the app; there is no setting to turn that off and no step where you opt in.
+            Your devotional content on our server is keyed to the random identifier for your install. Your content is copied there automatically as you use the app; there is no setting to turn that off and no step where you opt in. Gift ownership is also linked to the Apple identifier described above.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
-            To delete everything, open the You tab, tap the gear, and use &quot;Reset all data (deletes your account)&quot; under Data. The app first asks our server to delete everything held under your current identifier, then erases your data from this device and gives your install a new identifier. That server request is best-effort: the app waits up to eight seconds for it and treats only a clear confirmation as done, and the wipe on your device goes ahead either way. If the deletion is not confirmed, the app tells you so and asks you to contact us from the Support section, because the new identifier means the app can no longer reach the old copy or retry the request itself. The same reset, including the server request, runs if you choose &quot;Reset and start fresh&quot; on the crash-recovery screen — but that screen does not show you the warning if the server request fails. In the rare recovery mode where the app cannot read your saved identifier, there is nothing for us to match, so the server request is skipped and only this device is wiped.
+            To delete your devotional content and reset your install, open Profile and choose &quot;Reset app data&quot; under Data. The app first asks our server to delete your synced content under your current identifier, then erases app data from this device and gives your install a new identifier. Gift purchase and claim records are handled separately, as described below. That server request is best-effort: the app waits up to eight seconds for it and treats only a clear confirmation as done, and the wipe on your device goes ahead either way. If the deletion is not confirmed, the app tells you so and asks you to contact us from the Support section, because the new identifier means the app can no longer reach the old copy or retry the request itself. The same reset, including the server request, runs if you choose &quot;Reset and start fresh&quot; on the crash-recovery screen — but that screen does not show you the warning if the server request fails. In the rare recovery mode where the app cannot read your saved identifier, there is nothing for us to match, so the server request is skipped and only this device is wiped.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
-            Deleting one item is not the same as deleting everything, and what happens depends on what you delete. A note you delete stays in Recently Deleted on your device for 30 days so you can restore it, and is then removed from the device; on our server, deleting a note or a companion conversation marks that record deleted rather than removing the row, so it stops being sent to your devices but stays in our database until your data is deleted in full. Deleting a devotional currently removes it from this device only: no deletion is sent to our server, and the devotional and its journal entries can come back the next time your device reconciles with the server. There is no way to delete an individual journal entry.
+            To delete your gift account, open &quot;Gift a year of Unfold&quot; in Profile, sign in with the Apple account used for your gifts, and choose &quot;Delete gift account.&quot; This removes that Apple identifier from our gift records, deletes its gift sessions and purchase requests, and ends gift access you claimed. Gift codes you already shared remain usable, and gifts claimed by other people stay active. We keep transaction identifiers, gift status and dates, and code hashes to process refunds and prevent used codes from being redeemed again. These retained records no longer contain the deleted Apple identifier. Unfold does not hold an Apple access or refresh token to revoke; after deletion, the app explains how to remove Unfold from Sign in with Apple in your device settings.
+          </p>
+
+          <p className="text-foreground/80 leading-relaxed mb-4">
+            Deleting one item is not the same as resetting your app data, and what happens depends on what you delete. A note you delete stays in Recently Deleted on your device for 30 days so you can restore it, and is then removed from the device; on our server, deleting a note or a companion conversation marks that record deleted rather than removing the row, so it stops being sent to your devices but stays in our database until your data is deleted in full. Deleting a devotional currently removes it from this device only: no deletion is sent to our server, and the devotional and its journal entries can come back the next time your device reconciles with the server. There is no way to delete an individual journal entry.
           </p>
 
           <p className="text-foreground/80 leading-relaxed mb-4">
@@ -227,7 +248,8 @@ export default function PrivacyPage() {
           <ul className="space-y-3 text-foreground/80 mb-4 list-disc pl-5">
             <li>Ask us what data we hold for your install, by emailing support@unfoldapp.co. Include your Support ID — Settings, then Support, then Copy Support ID — so we can find the right install, and copy it before you reset, because a reset changes it. There is no in-app report of everything we hold.</li>
             <li>Ask us to correct it. Inside the app you can change your first name, your companion&apos;s name, your reminders and your reading and display preferences, and you can edit or delete your notes and edit a voice check-in transcript. The free-text answers you gave during onboarding cannot be edited in the app afterwards, even though they are sent to our server and used in your devotional prompts — email us, or clear them with a full reset.</li>
-            <li>Delete everything with &quot;Reset all data (deletes your account)&quot; — the You tab, then the gear, then Data. It erases your data from this device and asks our server to delete the copy held under your identifier. See Data Retention above for what happens if we cannot confirm the server side.</li>
+            <li>Delete your devotional content with &quot;Reset app data&quot; under Data in Profile. It erases app data from this device and asks our server to delete your synced content. Gift records are handled separately. See Data Retention above for what happens if we cannot confirm the server deletion.</li>
+            <li>Delete your gift account from &quot;Gift a year of Unfold&quot; in Profile. This ends your claimed gift access and removes your Apple identity from our gift records. It does not cancel an App Store subscription or remove gifts already given to other people.</li>
             <li>Delete individual items: a note, which stays recoverable for 30 days in Recently Deleted, a companion conversation, or a voice check-in. Deleting a devotional removes it from this device, but it can return when the device next reconciles with our server, and individual journal entries cannot be deleted.</li>
             <li>Export a devotional, together with its journal entries and check-ins, as a PDF from the Past Devotionals screen. PDF export needs an active subscription, covers one devotional at a time, and does not include standalone notes, companion conversations or voice check-ins.</li>
             <li>Turn off notifications at any time</li>
@@ -248,7 +270,7 @@ export default function PrivacyPage() {
             <li>Sentry - crash and error reporting from TestFlight and App Store builds, contacted directly by your device. See Usage Data above for exactly what it receives and what is stripped before it is sent.</li>
             <li>Expo - delivery of push notifications, and app-launch telemetry. To set up notifications your device sends Expo the raw push token iOS issued, your app&apos;s bundle id, our project id and a per-install identifier Expo stores on your device; Expo returns the token we store, so notification titles and bodies are relayed through Expo&apos;s servers, and Expo keeps re-registering the token on its own when iOS rotates it. Separately, a component of the app framework sends Expo one request each time the app launches, carrying a launch event name, the app version, the platform, the OS version and a random per-install identifier.</li>
             <li>A transcription provider - turns a voice check-in recording into text; requested through our server, which sends it the recording. The app names the provider on the recording screen before you send.</li>
-            <li>Apple - App Store subscription management, and iOS speech recognition when you dictate instead of typing, which may send that audio to Apple</li>
+            <li>Apple - App Store subscriptions and gift purchases, optional Sign in with Apple for gifts, and iOS speech recognition when you dictate instead of typing, which may send that audio to Apple</li>
             <li>bible-api.com - fetches individual verses you tap on; requested directly by your device, so it sees your IP address and the reference you looked up</li>
             <li>Google Fonts - the typeface used by the reading view and the note editor, loaded directly by your device each session, so Google sees your IP address and which font you are using. The text-highlighting library is now built into the app and is no longer fetched from anywhere.</li>
             <li>A text-to-speech provider - generates audio narration; requested through our server, which sends it the devotional text to be read aloud</li>
