@@ -11,10 +11,11 @@ export const dynamic = "force-static";
 // signal. Update the date on a route when its content actually changes.
 // changeFrequency and priority are deliberately omitted: Google ignores both.
 const ROUTES: Array<{ path: string; lastModified: string }> = [
-  { path: "/", lastModified: "2026-09-08" },
+  { path: "/", lastModified: "2026-09-23" },
+  { path: "/about", lastModified: "2026-09-23" },
   { path: "/methods", lastModified: "2026-09-08" },
-  { path: "/support", lastModified: "2026-09-08" },
-  { path: "/privacy", lastModified: "2026-09-08" },
+  { path: "/support", lastModified: "2026-09-23" },
+  { path: "/privacy", lastModified: "2026-09-23" },
   { path: "/terms", lastModified: "2026-02-13" },
 ];
 

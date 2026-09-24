@@ -56,10 +56,7 @@ export const metadata: Metadata = {
 const SITE = "https://unfoldapp.co";
 const APP_STORE = "https://apps.apple.com/app/id6760814444";
 
-// Entity markup. Deliberately carries NO aggregateRating: self-serving review
-// data on your own product breaks Google's rich-results policy, and the real
-// sample is three ratings. That also means the Software App rich result is
-// unattainable here by design, so this is judged as entity information only.
+// Keep entity facts stable. Current versions and ratings belong on the App Store.
 const ORG_SCHEMA = {
   "@type": "Organization",
   "@id": `${SITE}/#publisher`,
@@ -75,16 +72,16 @@ const APP_SCHEMA = {
   alternateName: "Unfold",
   applicationCategory: "LifestyleApplication",
   applicationSubCategory: "Bible Study",
-  operatingSystem: "iOS 16.4 or later",
-  softwareVersion: "1.1.5",
-  datePublished: "2026-09-08",
+  operatingSystem: "iOS / iPadOS 16.4 or later",
   inLanguage: "en",
   url: SITE,
   installUrl: APP_STORE,
+  image: `${SITE}/app-icon.png`,
   sameAs: [APP_STORE],
   description:
-    "Personalized daily devotionals and Bible study for iPhone. Unfold builds each day's reading around your spiritual season, with 32 named study methods, verse highlighting in the Berean Standard Bible and King James Version, guided reflection prompts and a prayer journal.",
+    "Personalized daily devotionals and Bible study for iPhone and iPad. Unfold builds each day's reading around your spiritual season, with 32 named study methods, verse highlighting in the Berean Standard Bible and King James Version, guided reflection prompts and a prayer journal.",
   publisher: { "@id": `${SITE}/#publisher` },
+  creator: { "@type": "Person", "@id": `${SITE}/about#founder`, name: "Nick Galang" },
   // Only the two products the page actually sells. The App Store also lists a
   // $44.99 Annual SKU that this page never renders; importing it here would
   // recreate the price contradiction this block exists to fix.
@@ -117,7 +114,15 @@ const APP_SCHEMA = {
 
 const SITE_SCHEMA = {
   "@context": "https://schema.org",
-  "@graph": [ORG_SCHEMA, APP_SCHEMA],
+  "@graph": [ORG_SCHEMA, APP_SCHEMA, {
+    "@type": "WebSite",
+    "@id": `${SITE}/#website`,
+    name: "Unfold: Personal Bible Study",
+    alternateName: "Unfold",
+    url: SITE,
+    publisher: { "@id": `${SITE}/#publisher` },
+    inLanguage: "en",
+  }],
 };
 
 export default function RootLayout({
