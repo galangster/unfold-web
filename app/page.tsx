@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import { useHydrated } from "@/components/use-hydrated";
 
 const APP_STORE_URL = "https://apps.apple.com/app/id6760814444";
 
@@ -16,11 +17,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Theme Toggle Component
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useHydrated();
 
   if (!mounted) {
     return (
@@ -249,13 +246,12 @@ function EmberBackground() {
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      setParticles([]);
       return;
     }
     // Halve the count on small screens; each ember runs two infinite tweens
     // with a blurred box-shadow, and they composite for the whole page scroll.
     const count = window.innerWidth < 768 ? 20 : 40;
-    setParticles(
+    const frame = requestAnimationFrame(() => setParticles(
       Array.from({ length: count }, (_, i) => ({
         id: i,
         delay: Math.random() * 8,
@@ -263,7 +259,8 @@ function EmberBackground() {
         size: 2 + Math.random() * 4,
         duration: 10 + Math.random() * 8,
       }))
-    );
+    ));
+    return () => cancelAnimationFrame(frame);
   }, [prefersReducedMotion]);
 
   if (prefersReducedMotion) return null;
@@ -401,10 +398,11 @@ function Navigation() {
           </div>
           <span className="text-foreground font-serif text-xl tracking-tight">Unfold</span>
         </div>
-        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+        <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">Features</a>
           <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">How it Works</a>
           <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">Pricing</a>
+          <a href="/about" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">About</a>
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
@@ -511,7 +509,7 @@ function HeroSection() {
           ref={subtitleRef}
           className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed font-light"
         >
-          Personalized devotionals that meet you where you are. Each day's reading is designed around your spiritual season.
+          Personalized devotionals that meet you where you are. Each day&apos;s reading is designed around your spiritual season.
         </p>
 
         <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -789,7 +787,7 @@ function FeaturesSection() {
     {
       icon: Shield,
       title: "Privacy First",
-      description: "No ad trackers. No third-party analytics. We never sell your data.",
+      description: "No advertising or ad tracking. We never sell your personal data. Read our privacy policy for details.",
       natureEffect: "glow",
     },
   ];
@@ -1291,7 +1289,8 @@ function Footer() {
             </div>
             <span className="text-foreground font-serif text-xl">Unfold</span>
           </div>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <a href="/about" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">About</a>
             <a href="/methods" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">Study methods</a>
             <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">Privacy</a>
             <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors text-sm inline-flex items-center min-h-11 px-1">Terms</a>

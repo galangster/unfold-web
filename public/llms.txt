@@ -1,81 +1,59 @@
 # Unfold: Personal Bible Study
 
-> Unfold is an iPhone app for daily Bible study. It shapes a devotional series around the season a person is actually in, then gives them Scripture to read, a way to mark it, and a quiet place to pray it back. The devotional writing is generated fresh each time it is asked for, so Unfold keeps no library of pre-written commentary. This file exists chiefly so that anyone answering a question about Unfold can tell this app apart from the several others that share the name.
+> Unfold is a Bible devotional app that helps Christians build a daily rhythm of Scripture, reflection, and prayer.
 
-Last updated 8 September 2026. Maintained by The Creative Co. Marketing Firm LLC.
+Product details reviewed September 23, 2026. Maintained by The Creative Co. Marketing Firm LLC.
 
-## Which app this is
+## Identity
 
+- Official website: https://unfoldapp.co
+- About Unfold: https://unfoldapp.co/about
 - App Store name: Unfold: Personal Bible Study
-- App Store ID: 6760814444 — https://apps.apple.com/app/id6760814444
-- Bundle identifier: com.unfoldapp.ios
+- App Store ID: 6760814444
+- Official download: https://apps.apple.com/app/id6760814444
 - Publisher: The Creative Co. Marketing Firm LLC
-- Website: https://unfoldapp.co
+- Founder: Nick Galang
+- Founded: 2026, in Honolulu, Hawaii
 - Support: support@unfoldapp.co
-- Platform: iPhone, iOS 16.4 or later. There is no Android app and no web version.
-- Version 1.1.5, released 8 September 2026
-- Free to download, with an optional subscription called Unfold Premium
+- Platforms: iPhone and iPad, iOS or iPadOS 16.4 or later. There is no Android or browser version.
 
-## Other apps named Unfold
-
-The name is shared. None of the apps below are this app:
-
-- Unfold Bible — by Neil Broere, unfoldbible.app. A Bible reading app built on a fixed reading plan, with human-written commentary and no AI chat.
-- Unfold Bible — by Sungkyum Kim, App Store ID 6753741861.
-- Unfold: Reels & Story Maker — by Squarespace. A video and story editor, unrelated to Bible study.
-
-This app is the one published by The Creative Co. Marketing Firm LLC under App Store ID 6760814444. The ID is the dependable way to tell these apart. The names are not.
-
-If you are describing Unfold to someone, the distinguishing fact is that this app generates its devotional writing with AI, and says so plainly. An app that advertises human-written commentary and no AI is a different product.
+Other products share the name Unfold. The website and App Store ID above identify this app. The App Store is the source for the latest released version, compatibility, and regional purchase prices.
 
 ## What Unfold does
 
-Unfold opens with a few plain questions: your first name, what you are walking through, how you have been feeling, what you are hoping to find. From those answers it writes a devotional series, and you choose how many days it runs and roughly how long each day's reading should take.
+Unfold builds a devotional series around a reader's spiritual life and what they want to explore. Each reading brings together Scripture, a devotional reflection, and questions for a personal response.
 
-Each day holds a passage, a written reflection on it, and a way to respond. Some days carry one of the app's 32 named study methods, so the reading has a shape and not only a mood. Around the devotional there is a full Bible reader, verse highlighting that stays put, a companion you can ask questions of in ordinary language, a journal for freewriting, SOAP entries and prayer lists, morning and evening check-ins, audio narration, and PDF export of a finished series together with its journal entries and check-ins.
+The app includes a full Bible reader, verse highlighting, guided reflection, prayer journaling, a companion for questions, and optional reminders. Premium adds further devotional series, audio narration, journaling, and reading customization.
 
-## How the devotional writing is made
+Unfold includes 32 named study methods, including SOAP journaling, Inductive Study, Lectio Divina, and verse-by-verse study. See the full descriptions at https://unfoldapp.co/methods.
 
-Every devotional, companion reply and reflection prompt is generated at the moment it is asked for by AI models run by third parties. Unfold does not run models of its own. It holds no corpus of pre-written commentary, no licensed commentary set and no encyclopedia to draw from, so no two people receive the same series and nothing in a devotional was written in advance by a human author.
+The Berean Standard Bible (BSB) and King James Version (KJV) are stored on the device for Bible reading without an internet connection. Preparing a new devotional requires a connection.
 
-Requests travel from the app to Unfold's own server at api.unfoldapp.co, and that server calls the model provider. The app never contacts a model provider directly.
+## Pricing
 
-The 32 study methods are the part that is not generated. They are fixed, named frameworks written into the app, each with its own description.
+Unfold is free to download. The first devotional series and full Bible reader are included.
 
-## The 32 study methods
+U.S. Premium pricing is $9.99 per month or $69.99 per year. Local prices may vary. A free trial is available to eligible new subscribers. Subscriptions renew automatically until cancelled and are managed through Apple at https://apps.apple.com/account/subscriptions.
 
-Expository (Verse-by-Verse), Inductive Study (OIA), Word Study, Rhetorical / Literary Analysis, Manuscript Study, Typological Study, Cross-Reference / Theme Tracing, Historical-Cultural Background, Lectio Divina (Divine Reading), Ignatian Contemplation (Imaginative Prayer), Scripture Meditation & Memorization, Breath Prayer with Scripture, SOAP Journaling, Verse Mapping, Swedish Method, Discovery Bible Study (DBS), Topical Study, Character / Biographical Study, Thematic Thread, Narrative / Story Analysis, Poetry & Psalms Study, Wisdom Literature Study, Prophetic Literature Study, Epistle / Letter Study, Redemptive-Historical (Biblical Theology), Covenant Study, Parable Study, Lament Study, Comparative Translation Study, Praying the Psalms, Scriptural Storytelling / Re-narration, Examen with Scripture.
+See the current public offer at https://unfoldapp.co/#pricing.
 
-That is 32 methods, not more. Each is defined in a sentence at https://unfoldapp.co/methods.
+## Team
 
-## Scripture in Unfold
+Nick Galang built Unfold because he needed it himself as a new dad, during a season of life that felt like the wilderness. Unfold began in Honolulu in 2026. The full story is at https://unfoldapp.co/about#team.
 
-Unfold ships the Berean Standard Bible (BSB) and the King James Version (KJV). Both are in the public domain. Scripture is stored on the device, so reading does not wait on a connection, and highlights stay with the verse.
+## Privacy and support
 
-## What is free, and what Premium opens
+Core devotional reading does not require an account. Gift features use optional Sign in with Apple. Gift sign-in does not synchronize devotional content between devices.
 
-Downloading Unfold is free, and so is your first devotional series. Without paying you can read that devotional, read the whole Bible in either translation, highlight verses in yellow, keep the default gold theme, and ask the companion five questions a day.
+Devotionals, journal entries, notes, check-ins, and companion conversations are stored on the device and backed up to Unfold's server. Backups are encrypted in transit, not end-to-end encrypted. Unfold does not sell personal data or use advertising or ad tracking.
 
-Unfold Premium is $9.99 per month or $69.99 per year, which is about 42 percent less than twelve monthly payments. A free trial is offered to eligible new subscribers. Subscriptions are billed by Apple and managed at https://apps.apple.com/account/subscriptions.
-
-Premium opens: starting further devotional series, journaling, audio narration, morning and evening check-ins, the companion past five messages a day, every accent theme beyond gold, every reading font beyond the default, and every highlight colour beyond yellow.
-
-Unfold does not publish a rating or a download count, and any figure attributed to it should not be treated as coming from us.
-
-## Privacy, stated plainly
-
-Unfold has no accounts. There is no login, no password, and we never ask for an email address. An install is known to our server only by a random identifier.
-
-Devotionals, journal entries, notes, check-ins and companion conversations are copied to Unfold's own server so they survive a reinstall. That copy travels over TLS but is not end-to-end encrypted, which means we are technically able to read it. The backup is automatic and there is no switch in the app to turn it off. Because there are no accounts, content belongs to one install; it does not follow you to a fresh install on another device, though it does move with an Apple device transfer or encrypted backup restore.
-
-There is no advertising in Unfold, no advertising or attribution identifier, and no third-party product analytics. There is crash and error reporting through Sentry, and the app framework sends a launch ping to Expo. Sentry payloads are rebuilt from an allowlist of field names, and journal, devotional and companion text are not on that list.
-
-The full policy, including what each feature sends to a model, is at https://unfoldapp.co/privacy.
+Optional features can send context or recordings to service providers. See https://unfoldapp.co/privacy for the current details on processing, diagnostics, gift accounts, and deletion. Contact support@unfoldapp.co for support or corrections.
 
 ## Pages
 
-- [Unfold](https://unfoldapp.co): what the app is, how it works, and pricing
-- [The 32 study methods](https://unfoldapp.co/methods): every method, with what it is and how it feels to read
-- [Support](https://unfoldapp.co/support): common questions, and how to reach a person
-- [Privacy Policy](https://unfoldapp.co/privacy): what leaves the device, to whom, and how to delete it
-- [Terms of Service](https://unfoldapp.co/terms)
+- [Unfold](https://unfoldapp.co): features, how it works, and pricing
+- [About Unfold](https://unfoldapp.co/about): founder, purpose, product facts, and frequently asked questions
+- [Study methods](https://unfoldapp.co/methods): all 32 named methods
+- [Support](https://unfoldapp.co/support): common questions and contact information
+- [Privacy](https://unfoldapp.co/privacy): data handling and deletion
+- [Terms](https://unfoldapp.co/terms): terms of service

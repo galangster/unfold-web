@@ -323,7 +323,10 @@ export default function PrivacyPage() {
             <p className="text-sm text-muted-foreground">
               © 2026 The Creative Co. Marketing Firm LLC. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+              <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors inline-flex items-center min-h-11">
+                About
+              </Link>
               <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
                 Privacy
               </Link>
