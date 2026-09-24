@@ -69,13 +69,18 @@ async function openWalkthrough() {
   return video;
 }
 
-test("the walkthrough pauses when a visitor enables Reduce Motion", async () => {
+test("the walkthrough starts, pauses, and resumes with the visitor's motion preference", async () => {
   const video = await openWalkthrough();
-  await video.play();
-  assert.equal(video.paused, false);
+  assert.equal(video.paused, false, "The component starts playback when the source becomes available");
+  assert.equal(video.autoplay, true);
 
   await act(async () => setReducedMotion(true));
 
   assert.equal(video.paused, true, "An active preview must stop when Reduce Motion is enabled");
   assert.equal(video.autoplay, false);
+
+  await act(async () => setReducedMotion(false));
+
+  assert.equal(video.paused, false, "The component resumes playback when Reduce Motion is disabled");
+  assert.equal(video.autoplay, true);
 });
