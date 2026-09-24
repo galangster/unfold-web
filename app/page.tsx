@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion, MotionConfig } from "framer-motion";
-import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Wind, Flame, Book, Feather } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion, useMotionValue, useSpring } from "framer-motion";
+import { ArrowRight, Sparkles, BookOpen, Heart, Shield, Moon, Sun, ChevronDown, Compass, PenLine, Leaf, Book, Feather } from "lucide-react";
 import { useTheme } from "next-themes";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -62,57 +62,57 @@ function ThemeToggle() {
   );
 }
 
-// 3D Card Component (Aceternity-style)
 function Card3D({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const prefersReducedMotion = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(x, { stiffness: 220, damping: 28, mass: 0.7 });
+  const rotateY = useSpring(y, { stiffness: 220, damping: 28, mass: 0.7 });
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!cardRef.current || prefersReducedMotion || e.pointerType !== "mouse") return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 10;
-    const rotateY = (centerX - x) / 10;
-    setRotation({ x: rotateX, y: rotateY });
+    const horizontal = Math.max(-1, Math.min(1, ((e.clientX - rect.left) / rect.width - 0.5) * 2));
+    const vertical = Math.max(-1, Math.min(1, ((e.clientY - rect.top) / rect.height - 0.5) * 2));
+    x.set(vertical * 1.5);
+    y.set(horizontal * -1.5);
   };
 
-  const handleMouseLeave = () => {
-    setRotation({ x: 0, y: 0 });
+  const handlePointerLeave = () => {
+    x.set(0);
+    y.set(0);
     setIsHovered(false);
   };
 
   return (
     <div
       ref={cardRef}
-      className={`relative perspective-1000 ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      style={{ perspective: "1000px" }}
+      className={`relative ${className}`}
+      onPointerMove={handlePointerMove}
+      onPointerEnter={(e) => setIsHovered(e.pointerType === "mouse")}
+      onPointerLeave={handlePointerLeave}
+      style={{ perspective: "1400px" }}
     >
       <motion.div
         className="relative w-full h-full"
-        animate={{
-          rotateX: rotation.x,
-          rotateY: rotation.y,
-          scale: isHovered ? 1.02 : 1,
+        animate={{ y: isHovered && !prefersReducedMotion ? -2 : 0 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        style={{
+          rotateX: prefersReducedMotion ? 0 : rotateX,
+          rotateY: prefersReducedMotion ? 0 : rotateY,
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        style={{ transformStyle: "preserve-3d" }}
       >
         {children}
-        {isHovered && (
-          <div
-            className="absolute inset-0 rounded-3xl pointer-events-none"
-            style={{
-              background: `radial-gradient(circle at ${50 + rotation.y * 2}% ${50 + rotation.x * 2}%, rgba(200, 165, 92, 0.15), transparent 50%)`,
-            }}
-          />
-        )}
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 rounded-3xl pointer-events-none"
+          initial={false}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.15 }}
+          style={{ background: "linear-gradient(135deg, rgba(200, 165, 92, 0.04), transparent 65%)" }}
+        />
       </motion.div>
     </div>
   );
@@ -275,10 +275,10 @@ function EmberBackground() {
 }
 
 // iPhone Mockup Component
-function IPhoneMockup({ children }: { children?: React.ReactNode }) {
+function IPhoneMockup() {
   const prefersReducedMotion = useReducedMotion();
   const frameRef = useRef<HTMLDivElement>(null);
-  // The walkthrough is a 1.26 MB file sitting well below the fold, and autoPlay
+  // The walkthrough sits well below the fold, and autoPlay
   // makes the browser fetch it during initial load whatever preload says. The
   // source is attached late instead, on whichever of these happens first:
   // the frame nearing the viewport, the first scroll, or a short safety timer.
@@ -323,43 +323,28 @@ function IPhoneMockup({ children }: { children?: React.ReactNode }) {
   }, []);
 
   return (
-    <div ref={frameRef} className="relative mx-auto" style={{ maxWidth: "320px" }}>
-      {/* Phone frame */}
-      <div className="relative bg-foreground rounded-[3rem] p-3 shadow-2xl">
-        {/* Outer bezel */}
-        <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-b from-[#3a3a3a] to-[#1a1a1a]" />
-        {/* Inner bezel */}
-        <div className="relative bg-background rounded-[2.5rem] overflow-hidden">
-          {/* Dynamic Island */}
-          <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-7 bg-foreground rounded-full z-20" />
-          {/* Screen content — paywall walkthrough video */}
-          <div className="aspect-[9/19.5] bg-background overflow-hidden">
-            {children || (
-              <video
-                className="w-full h-full object-cover"
-                aria-hidden="true"
-                autoPlay={!prefersReducedMotion}
-                loop
-                muted
-                playsInline
-                preload="none"
-                poster="/paywall-walkthrough-poster.jpg"
-              >
-                {videoInView && (
-                  <source src="/paywall-walkthrough.mp4" type="video/mp4" />
-                )}
-              </video>
+    <div ref={frameRef} className="phone-mockup">
+      <div className="phone-frame">
+        <div className="phone-screen">
+          <video
+            className="w-full h-full object-contain"
+            aria-hidden="true"
+            autoPlay={!prefersReducedMotion}
+            loop
+            muted
+            playsInline
+            preload="none"
+            poster="/unfold-walkthrough-v2-poster.jpg"
+          >
+            {videoInView && (
+              <source src="/unfold-walkthrough-v2.mp4" type="video/mp4" />
             )}
-          </div>
+          </video>
         </div>
-        {/* Buttons */}
-        <div className="absolute left-[-2px] top-24 w-[2px] h-8 bg-[#3a3a3a] rounded-l" />
-        <div className="absolute left-[-2px] top-36 w-[2px] h-16 bg-[#3a3a3a] rounded-l" />
-        <div className="absolute left-[-2px] top-56 w-[2px] h-16 bg-[#3a3a3a] rounded-l" />
-        <div className="absolute right-[-2px] top-40 w-[2px] h-20 bg-[#3a3a3a] rounded-r" />
       </div>
-      {/* Reflection */}
-      <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none" />
+      <span aria-hidden="true" className="phone-button phone-button-action" />
+      <span aria-hidden="true" className="phone-button phone-button-volume" />
+      <span aria-hidden="true" className="phone-button phone-button-power" />
     </div>
   );
 }
@@ -468,18 +453,17 @@ function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <EmberBackground />
-      <AnimatedGradientBackground />
-      
       {/* Parallax background elements */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#C8A55C]/10 rounded-full blur-3xl"
-        style={{ y: y1 }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#C8A55C]/5 rounded-full blur-3xl"
-        style={{ y: y2 }}
-      />
+      <div className="hero-atmosphere" aria-hidden="true">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#C8A55C]/10 rounded-full blur-3xl"
+          style={{ y: y1 }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#C8A55C]/5 rounded-full blur-3xl"
+          style={{ y: y2 }}
+        />
+      </div>
 
       <motion.div
         className="relative z-10 text-center max-w-5xl mx-auto px-6"
@@ -711,7 +695,7 @@ function NatureFeatureCard({
   return (
     <div
       ref={cardRef}
-      className="feature-card group relative bg-card/50 backdrop-blur-sm p-8 rounded-3xl border border-border hover:border-[#C8A55C]/30 transition-all duration-500 overflow-hidden"
+      className="feature-card group relative bg-card/50 backdrop-blur-sm p-8 rounded-3xl border border-border hover:border-[#C8A55C]/30 transition-colors duration-200 overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -733,8 +717,8 @@ function NatureFeatureCard({
       />
       
       <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        whileHover={{ y: -2 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         className="relative z-10"
       >
         <div className="w-14 h-14 bg-[#C8A55C]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#C8A55C]/20 transition-colors">
@@ -834,10 +818,10 @@ function FeaturesSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="features" className="py-32 bg-background relative">
+    <section ref={sectionRef} id="features" className="section-blend py-32 relative">
       <div className="max-w-6xl mx-auto px-6">
         <div ref={titleRef} className="text-center mb-20">
-          <span className="text-[#C8A55C] font-medium text-sm tracking-wider uppercase mb-4 block">
+          <span className="text-gold-accent font-medium text-sm tracking-normal mb-4 block">
             Features
           </span>
           <h2 className="font-serif text-5xl md:text-6xl text-foreground mb-6">
@@ -917,12 +901,12 @@ function AppShowcaseSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-32 relative overflow-hidden">
+    <section ref={sectionRef} className="section-blend section-blend-warm py-32 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div ref={contentRef}>
-            <span className="text-[#C8A55C] font-medium text-sm tracking-wider uppercase mb-4 block">
-              The Experience
+            <span className="text-gold-accent font-medium text-sm tracking-normal mb-4 block">
+              The experience
             </span>
             <h2 className="font-serif text-5xl md:text-6xl text-foreground mb-6">
               Sacred moments,
@@ -1060,14 +1044,14 @@ function HowItWorksSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="how-it-works" className="py-32 bg-background relative overflow-hidden">
+    <section ref={sectionRef} id="how-it-works" className="section-blend py-32 relative overflow-hidden">
       {/* Subtle background gradient */}
       <div className="absolute top-1/2 left-0 right-0 h-96 bg-gradient-to-b from-transparent via-[#C8A55C]/5 to-transparent -translate-y-1/2" />
       
       <div className="max-w-6xl mx-auto px-6 relative">
         <div ref={titleRef} className="text-center mb-20">
-          <span className="text-[#C8A55C] font-medium text-sm tracking-wider uppercase mb-4 block">
-            How it Works
+          <span className="text-gold-accent font-medium text-sm tracking-normal mb-4 block">
+            How it works
           </span>
           <h2 className="font-serif text-5xl md:text-6xl text-foreground">
             Your journey
@@ -1192,10 +1176,10 @@ function PricingSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="pricing" className="py-32 bg-secondary/30 relative">
+    <section ref={sectionRef} id="pricing" className="section-blend section-blend-warm py-32 relative">
       <div className="max-w-4xl mx-auto px-6">
         <div ref={titleRef} className="text-center mb-16">
-          <span className="text-[#C8A55C] font-medium text-sm tracking-wider uppercase mb-4 block">
+          <span className="text-gold-accent font-medium text-sm tracking-normal mb-4 block">
             Pricing
           </span>
           <h2 className="font-serif text-5xl md:text-6xl text-foreground mb-6">
@@ -1237,7 +1221,7 @@ function PricingSection() {
           <Card3D className="pricing-card">
             <div className="bg-foreground p-8 rounded-3xl border-2 border-[#C8A55C] relative overflow-hidden h-full">
               <div className="absolute top-4 right-4 bg-[#C8A55C] text-background text-xs font-bold px-3 py-1 rounded-full">
-                POPULAR
+                Popular
               </div>
               <h3 className="font-serif text-2xl text-background mb-2">Premium</h3>
               <p className="text-background/60 mb-6">Unlock everything</p>
@@ -1274,7 +1258,7 @@ function PricingSection() {
 // Footer - FIXED app icon
 function Footer() {
   return (
-    <footer className="bg-secondary/30 py-16 border-t border-border">
+    <footer className="section-blend py-16 relative">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-center gap-8">
           <div className="flex items-center gap-3">
@@ -1324,7 +1308,11 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="bg-background min-h-screen overflow-x-hidden">
+    <main className="relative isolate bg-background min-h-screen overflow-x-hidden">
+      <div className="site-atmosphere" aria-hidden="true">
+        <AnimatedGradientBackground />
+        <EmberBackground />
+      </div>
       <Navigation />
       <HeroSection />
       <FeaturesSection />
