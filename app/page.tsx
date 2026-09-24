@@ -398,7 +398,7 @@ function Navigation() {
           </div>
           <span className="text-foreground font-serif text-xl tracking-tight">Unfold</span>
         </div>
-        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+        <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">Features</a>
           <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">How it Works</a>
           <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium inline-flex items-center min-h-11 px-1">Pricing</a>
