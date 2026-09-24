@@ -10,8 +10,8 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/about" },
-  openGraph: { title, description, url: "/about", type: "website" },
-  twitter: { card: "summary_large_image", title, description },
+  openGraph: { title, description, url: "/about", type: "website", images: [{ url: "/opengraph-image", alt: "Unfold: a personal Bible study app" }] },
+  twitter: { card: "summary_large_image", title, description, images: ["/twitter-image"] },
 };
 
 const features = [
