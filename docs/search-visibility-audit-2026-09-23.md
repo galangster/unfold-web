@@ -21,13 +21,13 @@ The live site was crawlable before this change. The largest fixable gaps were mi
 | Internal links | The site offered no path to company information. | Added About to the homepage navigation and every public page footer. Footer links wrap on small screens. |
 | Privacy copy | The homepage broadly claimed no third-party analytics despite documented diagnostics. | Replaced it with the narrower, supported statement about advertising and data sales. |
 | Site tools | ESLint scanned generated bundles. Existing hydration patterns also failed current lint rules. | Excluded build output and corrected hydration handling. Full lint and production build pass. |
-| Social cards | Existing secondary pages inherit the generic homepage Twitter title. | About has its own social title and description. Updating every older social card remains a small follow-up. |
+| Social cards | Existing secondary pages inherit the generic homepage Twitter title. The deployed About page also lacked image metadata. | About now explicitly references the existing Open Graph and Twitter images. Updating every older social title remains a small follow-up. |
 | Performance | A PageSpeed API request returned HTTP 429. | No performance or Core Web Vitals score is claimed. Check real mobile field data in Search Console before prioritizing a rewrite. |
 | Search measurement | Search Console, Bing Webmaster Tools, and private traffic reports were not available in this audit. | Index coverage, backlinks, conversions, and ranking changes remain unverified. |
 
 ## Next priorities
 
-1. Verify the domain in Google Search Console and Bing Webmaster Tools. Submit the sitemap and inspect the About URL. Use crawl and indexing reports to resolve actual failures.
+1. Verify real search-bot access in Cloudflare, Google Search Console, and Bing Webmaster Tools. Submit the sitemap and inspect the About URL. Use crawl and indexing reports to resolve actual failures.
 2. Publish a few useful, original guides: beginning a daily devotional habit, a worked SOAP example, and making room for Scripture as a new parent. Use named authors, real examples, source passages, and honest product limits. Link them from the app's relevant pages.
 3. Seek independent reviews and mentions from Christian publications, churches, podcasts, and readers. Give reviewers the real app and let them describe their experience. Do not invent testimonials or comparison statistics.
 4. Track a fixed set of questions over time: “Bible devotional app for beginners,” “personalized daily devotional app,” and “Bible app with prayer journaling.” Record mentions, citations, accuracy, and visits. Record assistant, date, and whether web search was enabled. A single answer is not a ranking measurement.
@@ -50,3 +50,12 @@ An About page helps people and search systems understand the brand. It does not 
 ## Validation limits
 
 The audit verifies public pages and local source behavior. It does not prove search-engine indexing, live bot allowlisting, a ranking gain, or private analytics. The current App Store submission is separate from these website changes.
+
+## Deployment follow-up
+
+The About page was deployed and verified in the public browser. Its founder facts, canonical URL, title, and structured data match the source. During the post-deployment audit, plain Python requests received HTTP 403 with Cloudflare error 1010 across the public routes, robots.txt, sitemap.xml, and llms.txt. The browser still loaded the site normally.
+
+Cloudflare documents 1010 as a browser-signature block. This observation does not establish that Googlebot, OAI-SearchBot, or Claude-SearchBot is blocked. Confirm their real requests in Cloudflare security events and the search-engine inspection tools. The Cloudflare dashboard was signed out, so its rules and logs were not inspected. No security settings were changed.
+
+- [Cloudflare: error 1010](https://developers.cloudflare.com/support/troubleshooting/http-status-codes/cloudflare-1xxx-errors/error-1010/)
+- [Cloudflare: verified bots](https://developers.cloudflare.com/bots/concepts/bot/verified-bots/)
