@@ -100,7 +100,7 @@ export default function AboutPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-6 py-16 sm:py-24">
-        <p className="text-sm tracking-widest uppercase text-gold-accent mb-5">A daily rhythm with God</p>
+        <p className="text-sm tracking-normal text-gold-accent mb-5">A daily rhythm with God</p>
         <h1 className="font-serif text-5xl sm:text-7xl leading-tight mb-7">About Unfold</h1>
         <p className="text-xl sm:text-2xl leading-relaxed text-foreground/90">Unfold is a Bible devotional app that helps Christians build a daily rhythm of Scripture, reflection, and prayer.</p>
         <p className="mt-5 text-muted-foreground leading-relaxed">Bring the questions, hopes, and ordinary moments of your life. Unfold gives you a passage to sit with and space to respond.</p>
