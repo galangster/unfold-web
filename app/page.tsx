@@ -96,7 +96,7 @@ function Card3D({ children, className = "" }: { children: React.ReactNode; class
       style={{ perspective: "1400px" }}
     >
       <motion.div
-        className="relative w-full h-full"
+        className="card-tilt relative w-full h-full"
         animate={{ y: isHovered && !prefersReducedMotion ? -2 : 0 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
         style={{

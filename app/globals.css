@@ -233,6 +233,10 @@ html {
    (framer-motion, GSAP) is gated separately in the components, because inline
    styles written by those libraries are not reachable from here. */
 @media (prefers-reduced-motion: reduce) {
+  .card-tilt {
+    transform: none !important;
+  }
+
   html {
     scroll-behavior: auto;
   }
